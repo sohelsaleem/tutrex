@@ -1,0 +1,25 @@
+<h4>Current capabilities:</h4>
+<p>{{ current.numberOfStudents }} students</p>
+<p>{{ current.numberOfTeachers }} teachers</p>
+<p>{{ current.lessonDuration }} minutes lessons</p>
+<p>{{ current.paymentPeriod|capitalize }} payment period</p>
+<br/>
+
+<h4>New capabilities:</h4>
+<p>{{ new.numberOfStudents }} students</p>
+<p>{{ new.numberOfTeachers }} teachers</p>
+<p>{{ new.lessonDuration }} minutes lessons</p>
+<p>{{ new.paymentPeriod|capitalize }} payment period</p>
+<br/>
+
+<input class="plan-id-in-modal" type="hidden">
+<div class="coupon-block">
+    <h4>Do you have coupon code?</h4>
+    <form>
+        <input name="coupon" class="form-control" id="coupon"/>
+    </form>
+</div>
+<div class="modal-buttons text-center">
+    <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+    <button class="change-plan-button btn learnium-info-btn">Change plan</button>
+</div>

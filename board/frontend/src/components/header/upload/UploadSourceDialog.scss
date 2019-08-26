@@ -1,0 +1,15 @@
+.dialog {
+    max-width: 28.5em;
+}
+
+.actionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    & > button {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+}

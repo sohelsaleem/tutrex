@@ -1,0 +1,31 @@
+.progress {
+    position: relative;
+    height: 1.3em;
+    margin: 3em;
+
+    background-color: #CCC;
+    border-radius: 0.5em;
+
+    overflow: hidden;
+}
+
+.bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    background-color: #3ea1f6;
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent 0.8em, hsla(0, 0%, 100%, .2) 0, hsla(0, 0%, 100%, .2) 1.6em);
+}
+
+.hint {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    text-align: center;
+
+    color: white;
+}

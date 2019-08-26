@@ -1,0 +1,16 @@
+@import './HeaderConstants';
+
+.timeLeft {
+    height: 1.5em;
+    margin: auto 1em;
+
+    color: $header-text-color;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.timeLeftRed {
+    color: #de8542;
+}

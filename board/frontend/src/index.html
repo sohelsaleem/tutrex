@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css" media="screen">
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        p {
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        p * {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            font-size: 1.5em;
+            margin: 0.25em auto;
+        }
+    </style>
+</head>
+<body>
+
+
+<script>
+    createDefaultRooms();
+
+    function createDefaultRooms() {
+        var rooms = [
+            {
+                id: 1,
+                members: [
+                    {
+                        id: 1,
+                        name: 'Presenter',
+                        is_teacher: true
+                    },
+                    {
+                        id: 2,
+                        name: 'Student 1',
+                        is_teacher: false
+                    },
+                    {
+                        id: 3,
+                        name: 'Student 2',
+                        is_teacher: false
+                    }
+                ]
+            },
+            {
+                id: 2,
+                can_record_class: true,
+                members: [
+                    {
+                        id: 4,
+                        name: 'Presenter',
+                        is_teacher: true
+                    },
+                    {
+                        id: 5,
+                        name: 'Student 1',
+                        is_teacher: false
+                    },
+                    {
+                        id: 6,
+                        name: 'Student 2',
+                        is_teacher: false
+                    }
+                ]
+            },
+            {
+                id: 3,
+                members: [
+                    {
+                        id: 10,
+                        name: 'Presenter',
+                        is_teacher: true
+                    },
+                    {
+                        id: 11,
+                        name: 'Student 1',
+                        is_teacher: false
+                    },
+                    {
+                        id: 12,
+                        name: 'Student 2',
+                        is_teacher: false
+                    },
+                    {
+                        id: 13,
+                        name: 'Student 3',
+                        is_teacher: false
+                    },
+                    {
+                        id: 14,
+                        name: 'Student 4',
+                        is_teacher: false
+                    },
+                    {
+                        id: 19,
+                        name: 'Student 5',
+                        is_teacher: false
+                    },
+                    {
+                        id: 20,
+                        name: 'Student 6',
+                        is_teacher: false
+                    },
+                    {
+                        id: 21,
+                        name: 'Student 7',
+                        is_teacher: false
+                    },
+                    {
+                        id: 22,
+                        name: 'Student 8',
+                        is_teacher: false
+                    },
+                    {
+                        id: 23,
+                        name: 'Student 9',
+                        is_teacher: false
+                    },
+                    {
+                        id: 24,
+                        name: 'Student 10',
+                        is_teacher: false
+                    },
+                    {
+                        id: 25,
+                        name: 'Student 11',
+                        is_teacher: false
+                    },
+                    {
+                        id: 26,
+                        name: 'Student 12',
+                        is_teacher: false
+                    },
+                    {
+                        id: 27,
+                        name: 'Student 13',
+                        is_teacher: false
+                    },
+                    {
+                        id: 28,
+                        name: 'Student 14',
+                        is_teacher: false
+                    },
+                    {
+                        id: 29,
+                        name: 'Student 15',
+                        is_teacher: false
+                    },
+                    {
+                        id: 30,
+                        name: 'Student 16',
+                        is_teacher: false
+                    },
+                    {
+                        id: 31,
+                        name: 'Student 17',
+                        is_teacher: false
+                    },
+                    {
+                        id: 32,
+                        name: 'Student 18',
+                        is_teacher: false
+                    },
+                    {
+                        id: 33,
+                        name: 'Student 19',
+                        is_teacher: false
+                    },
+                    {
+                        id: 34,
+                        name: 'Student 20',
+                        is_teacher: false
+                    },
+                    {
+                        id: 35,
+                        name: 'Student 21',
+                        is_teacher: false
+                    },
+                    {
+                        id: 36,
+                        name: 'Student 22',
+                        is_teacher: false
+                    },
+                    {
+                        id: 37,
+                        name: 'Student 23',
+                        is_teacher: false
+                    },
+                    {
+                        id: 38,
+                        name: 'Student 24',
+                        is_teacher: false
+                    },
+                    {
+                        id: 39,
+                        name: 'Student 25',
+                        is_teacher: false
+                    }
+                ]
+            },
+            {
+                id: 4,
+                isDemoClassRoom: true,
+                teacher_gone_timeout: 1,
+                members: [
+                    {
+                        id: 15,
+                        name: 'Presenter',
+                        is_teacher: true
+                    },
+                    {
+                        id: 16,
+                        name: 'Student 1',
+                        is_teacher: false
+                    },
+                    {
+                        id: 17,
+                        name: 'Student 2',
+                        is_teacher: false
+                    },
+                    {
+                        id: 18,
+                        name: 'Student 3',
+                        is_teacher: false
+                    }
+                ]
+            }
+        ];
+
+        transformRooms(rooms);
+        createRooms(rooms);
+    }
+
+    function transformRooms(rooms) {
+        rooms.forEach(function (room) {
+            room.lesson_link = 'https://www.yandex.ru/?q=123';
+            room.lesson_code = 'l3ss0n';
+            room.start_time = Math.floor(new Date().getTime() / 1000);
+            room.name = 'Test Classroom';
+            room.classroom_logo = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png';
+
+            room.approx_duration = 60*60*3;
+            room.max_duration = 60*60*4;
+
+            room.max_upload_size = 10;
+
+            room.number_of_students = 2;
+
+            if (room.isDemoClassRoom) {
+                room.approx_duration = 60*4;
+                room.max_duration = 60*5;
+
+                room.is_files_sharing_not_available = true;
+            }
+
+            room.members.forEach(function (member) {
+                member.exit_link = 'https://www.google.com/?q=' + member.name;
+                member.room = room;
+            });
+        });
+    }
+
+    function createRooms(rooms) {
+        rooms.forEach(createRoom);
+    }
+
+    function createRoom(room) {
+        var block = document.createElement('p');
+        block.appendChild(createHeader(room));
+        document.body.appendChild(block);
+
+        room.members.forEach(createMember.bind(null, block));
+    }
+
+    function createHeader(room) {
+        var header = document.createElement('h3');
+        header.innerHTML = 'Room ' + room.id + '(click to open all members)';
+
+        header.onclick = function () {
+            room.members.forEach(function (member) {
+                var url = getMemberURL(member);
+                window.open(url, '_blank');
+            });
+        };
+
+        return header;
+    }
+
+    function createMember(block, member) {
+        var link = document.createElement('a');
+        link.href = getMemberURL(member);
+        link.target = '_blank';
+        link.innerHTML = formDescription(member);
+
+        block.appendChild(link);
+    }
+
+    function getMemberURL(member) {
+        return 'board.html?token=' + formToken(member) + '&nc=' + Math.random();
+    }
+
+    function formToken(member) {
+        const room = Object.assign({}, member.room);
+        const user = Object.assign({}, member);
+
+        delete user.room;
+        delete room.members;
+
+
+        const info = {room, user};
+
+        return btoa(JSON.stringify(info));
+    }
+
+    function formDescription(member) {
+        var kind = member.is_teacher ? 'Presenter' : 'Student';
+        var name = member.name;
+        var id = member.id;
+
+        return '[' + kind + ']: ' + name + ' (id=' + id + ')';
+    }
+</script>
+</body>
+</html>

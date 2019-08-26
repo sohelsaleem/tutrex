@@ -1,0 +1,19 @@
+{% if app.user.last4CardCode != null %}
+    <p class="profile-label">Credit card</p>
+    <p class="profile-field">
+        **** **** **** {{ app.user.last4CardCode }}
+        <a class="edit-credit-card action-link" href="#">
+            <img src="{{ asset('bundles/app/images/icons/edit.png') }}" class="edit-icon">
+            <img src="{{ asset('bundles/app/images/icons/edit-hover.png') }}" class="hover-edit-icon">
+        </a>
+        <a class="delete-credit-card action-link" href="#">
+            <img src="{{ asset('bundles/app/images/icons/delete.png') }}" class="delete-icon">
+            <img src="{{ asset('bundles/app/images/icons/delete-hover.png') }}" class="hover-delete-icon">
+        </a>
+    </p>
+    {% if app.user.plan.name != 'Basic' %}
+        <p class="profile-label">Your subscription will be automatically renewed</p>
+    {% endif %}
+{% else %}
+    <a class="set-credit-card edit-credit-card" href="#" data-toggle="modal" data-target="#editCreditCardModal">Set credit card</a>
+{% endif %}

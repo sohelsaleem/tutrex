@@ -1,0 +1,392 @@
+@import "variables";
+@import "modal";
+
+html, body {
+  height: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  color: @learnium-black;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.glyphicon-exclamation-sign {
+  display: none;
+}
+
+.has-error {
+  .control-label {
+    color: @learnium-red;
+  }
+
+  .help-block {
+    color: @learnium-red;
+  }
+}
+
+.has-error {
+  .form-control {
+    border-color: @learnium-red;
+  }
+}
+
+input[type="text"], input[type="password"], input[type="number"], input[type="email"], select, .form-control {
+  border: 1px solid #ebebeb;
+}
+
+.btn {
+  font-weight: 600;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
+  -ms-transition: 0.3s all;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.glyphicon {
+  cursor: pointer;
+  color: @learnium-light-gray;
+  &:hover {
+    color: @learnium-light-gray-active;
+  }
+  &.glyphicon-pencil {
+
+  }
+  &.learning-remove {
+    &:before {
+      content: url("/bundles/app/images/icons/close.png");
+    }
+  }
+
+  &.learning-ok {
+    &:before {
+      content: url("/bundles/app/images/icons/accept.png");
+    }
+  }
+}
+
+.learnium-default-btn {
+  background: #bfc3ca;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  &:focus, &:hover {
+    color: #fff;
+    background: #a9aeb6;
+  }
+}
+
+.learnium-secondary-btn {
+  background: @learnium-blue;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  &:focus, &:hover {
+    color: #fff;
+    background: @learnium-blue-active;
+  }
+}
+
+.learnium-third-btn {
+  background-color: rgba(135, 195, 245, 0.17);
+  color: #3d85c6;
+  padding: 10px 20px;
+  border: 0;
+  &:focus, &:hover {
+    color: lighten(#3d85c6, 10%);
+    background: darken(rgba(135, 195, 245, 0.17), 10%);
+  }
+}
+
+.learnium-info-btn {
+  background: @learnium-popup-blue;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  &:focus, &:hover {
+    color: #fff;
+    background: @learnium-popup-blue-active;
+  }
+}
+
+.learnium-primary-btn {
+  background: @learnium-primary;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  &:focus, &:hover {
+    color: #fff;
+    background: @learnium-primary-active;
+  }
+}
+
+.learnium-danger-btn {
+  background: @learnium-red;
+  color: #fff;
+  border: 0;
+  padding: 10px 20px;
+  &:focus, &:hover {
+    color: #fff;
+    background: @learnium-red-active;
+  }
+}
+
+.learnium-success-btn {
+  background: @learnium-success;
+  color: #fff;
+  border: 0;
+  padding: 10px 20px;
+  &:focus, &:hover {
+    background: @learnium-success-active;
+    color: #fff;
+  }
+}
+
+.modal {
+  .modal-body {
+    background: #f3f5f7;
+  }
+}
+
+.container-fluid {
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  > .row {
+    width: 100%;
+  }
+  .menu-col, .content-col {
+    padding-top: 50px;
+  }
+  .menu-col {
+    background: @learnium-light-blue;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 30px;
+
+    @media(max-width: 991px) {
+      height: auto;
+      align-items: flex-start;
+      padding-right: 15px;
+
+      .navbar {
+        margin-left: 0;
+
+        .navbar-nav {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .navbar-default {
+      background: none;
+      border: 0;
+      .navbar-nav {
+        li {
+          a {
+            -webkit-transition: 0.3s all;
+            -moz-transition: 0.3s all;
+            -ms-transition: 0.3s all;
+            -o-transition: 0.3s all;
+            transition: 0.3s all;
+            display: flex;
+            &:hover {
+              background: rgba(255, 255, 255, 0.4);
+            }
+            &.active {
+              color: #fff;
+              span {
+                &.learnium-subscriptions {
+                  &::before {
+                    content: url("/bundles/app/images/icons/subscriptions-active.png");
+                  }
+                }
+                &.learnium-lesson {
+                  &::before {
+                    content: url("/bundles/app/images/icons/lessons-active.png");
+                  }
+                }
+                &.learnium-teachers {
+                  &::before {
+                    content: url("/bundles/app/images/icons/teachers-active.png");
+                  }
+                }
+                &.learnium-profile {
+                  &::before {
+                    content: url("/bundles/app/images/icons/profile-active.png");
+                  }
+                }
+                &.learnium-storage {
+                  &::before {
+                    content: url("/bundles/storage/images/cloud-active.svg");
+                    top: 2px;
+                    position: absolute;
+                    left: -15px;
+                  }
+                  margin-left: 12px;
+                }
+              }
+              background-image: linear-gradient(106deg, #40b2ec, #5795f5);
+              border-radius: 2px;
+            }
+            span {
+              &.menu-label {
+                line-height: 22px;
+              }
+              &.learnium-lesson {
+                &::before {
+                  content: url("/bundles/app/images/icons/lessons.png");
+                }
+              }
+              &.learnium-subscriptions {
+                &::before {
+                  content: url("/bundles/app/images/icons/subscriptions.png");
+                }
+              }
+              &.learnium-teachers {
+                &::before {
+                  content: url("/bundles/app/images/icons/teachers.png");
+                }
+              }
+              &.learnium-profile {
+                &::before {
+                  content: url("/bundles/app/images/icons/profile.png");
+                }
+              }
+              &.learnium-storage {
+                &::before {
+                  content: url("/bundles/storage/images/cloud.svg");
+                  top: 2px;
+                  position: absolute;
+                  left: -15px;
+                }
+                margin-left: 12px;
+              }
+            }
+            color: @learnium-blue-active;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+          }
+        }
+      }
+      &.navbar-bottom {
+        li {
+          a {
+            color: rgba(116, 147, 175, 1);
+            &.logout {
+              color: rgba(116, 147, 175, 0.5);
+            }
+            &:hover {
+              color: #5a7a96;
+              background: none !important;
+            }
+          }
+        }
+      }
+
+      &.navbar-top {
+        flex: 1;
+
+        @media(max-width: 991px) {
+          width: 100%;
+
+          > .navbar-nav {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+label.blue-check-label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  padding-left: 25px;
+  font-size: 14px;
+  margin-bottom: 10px;
+
+  &.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
+label.blue-check-label:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 1px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ebebeb;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox]:checked + label.blue-check-label:before, label.blue-check-label.checked-label:before {
+  content: "\2714";
+  font-size: 12px;
+  color: #fff;
+  background: @learnium-popup-blue-active;
+  text-align: center;
+  line-height: 15px;
+}
+
+.modal-header {
+  h4 {
+    position: relative;
+    top: -7px;
+    transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+    -o-transform: translateY(50%);
+    -moz-transform: translateY(50%);
+    display: inline-block;
+  }
+
+  .close {
+    font-size: 30px;
+    position: relative;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    top: 15px;
+  }
+}
+
+.success-message {
+  border-radius: 4px;
+  background-color: rgba(13, 217, 142, 0.11);
+  color: #2fb785;
+  letter-spacing: 0.3px;
+  border: none;
+}
+
+.info-message {
+  background-color: rgba(62, 161, 246, 0.11);
+  letter-spacing: 0.3px;
+  color: #50a0e3;
+  border-radius: 4px;
+  border: none;
+}
+
+.alert-danger {
+  background-color: rgba(240, 63, 63, 0.11);
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+  color: #e94e4e;
+  border: none;
+}

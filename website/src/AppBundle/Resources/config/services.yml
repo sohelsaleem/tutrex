@@ -1,0 +1,59 @@
+services:
+    app.twig_extension:
+        class: AppBundle\Twig\TwigExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    stripe.manager:
+        class: AppBundle\Manager\StripeManager
+        arguments: ["@doctrine.orm.entity_manager", "%stripe_public_key%", "%stripe_secret_key%"]
+
+    lesson.manager:
+        class: AppBundle\Manager\LessonManager
+        arguments: ["@service_container"]
+
+    browser.manager:
+        class: AppBundle\Manager\UserAgentManager
+
+    userLessonToken.manager:
+        class: AppBundle\Manager\UserLessonTokenManager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    app.is_not_empty_duration_validator:
+        class: AppBundle\Validator\Constraints\IsNotEmptyDurationValidator
+        arguments: ["@validator"]
+        tags:
+            - { name: validator.constraint_validator }
+
+    app.approx_duration_limit_validator:
+        class: AppBundle\Validator\Constraints\ApproxDurationLimitValidator
+        arguments: ["@security.token_storage"]
+        tags:
+            - { name: validator.constraint_validator }
+
+    app.mailer:
+        class: AppBundle\Manager\MailManager
+        arguments: ['@mailer']
+
+    app.ffmpeg.util:
+        class: AppBundle\Util\FfmpegUtil
+        arguments: ['%ffmpeg%']
+
+    host.listener:
+        class: AppBundle\EventListener\HostListener
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    fos_user.mailer:
+        class: AppBundle\Util\Mailer
+        arguments: ['@service_container']
+
+    certificate.util:
+        class: AppBundle\Util\CertificateUtil
+        arguments: ['@service_container']
+
+    lesson.api_validator:
+        class: AppBundle\Util\LessonApiValidator
+        arguments: ['@lesson.manager']

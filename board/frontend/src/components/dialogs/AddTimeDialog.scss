@@ -1,0 +1,17 @@
+.informationText {
+    text-align: center;
+}
+
+.select {
+    margin: 2em 0;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    & > button {
+        margin: 0 1em;
+    }
+}

@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Lesson{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss, cssrewrite'
+    '@AppBundle/Resources/public/less/lessonCountdown.less'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="timer-row row">
+        <div class="col-xs-12">
+            <div class="timer-wrapper">
+                <input id="token" type="hidden" value="{{ token }}">
+                <input id="lessonTime" type="hidden" value="{{ lesson.date|date('d.m.Y') ~ ' ' ~ lesson.time|date('H:i') }}">
+                <p class="timer-caption"></p>
+                <div id="lesson-timer" class="lesson-timer"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+    {% javascripts filter='?uglifyjs2'
+
+    '@AppBundle/Resources/public/js/lessonCountdown.js'
+    '@AppBundle/Resources/public/js/moment.min.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{%  endblock %}

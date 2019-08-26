@@ -1,0 +1,155 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@UserBundle/Resources/public/less/subscriptions.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="user-subscription-info">
+        <div>
+            <p class="profile-label">Current subscription plan</p>
+            <p class="profile-field">{{ app.user.plan.name }}</p>
+            {% if app.user.plan and app.user.plan.name != 'Basic' and subscription is not null %}
+                <p class="profile-label">Expiration date</p>
+                <p class="profile-field">{{ subscription.current_period_end|date("d M Y") }}</p>
+            {% endif %}
+        </div>
+
+        {% if not app.user.reseller or app.user.reseller.apiEnabled %}
+            <div>
+                <p class="profile-label">Current API plan</p>
+                <p class="profile-field">{{ app.user.apiPlan.name }}</p>
+                {% if app.user.apiPlan and app.user.apiPlan.name != 'API Basic' and apiSubscription is not null %}
+                    <p class="profile-label">Expiration date</p>
+                    <p class="profile-field">{{ apiSubscription.current_period_end|date("d M Y") }}</p>
+                {% endif %}
+                <p class="profile-label">API key</p>
+                <p class="profile-field">{{ app.user.apiKey }}</p>
+            </div>
+        {% endif %}
+
+        {% if not app.request.attributes.get('reseller') %}
+            <div class="credit-card-block">
+                {% include 'UserBundle:Subscription:creditCardBlock.html.twig' %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="plans-block">
+        {% if app.user.reseller and not app.user.reseller.apiEnabled %}
+            <p class="profile-header">Subscription Plans</p>
+        {% else %}
+            <div class="plan-tab-selector">
+                <div class="plan-tab plan-tab_active" data-content-id="website-plans-tab">Website Plans</div>
+                <div class="plan-tab" data-content-id="api-plans-tab">API Plans</div>
+            </div>
+        {% endif %}
+        <div id="website-plans-tab" class="plan-tab-content">
+            {% include 'UserBundle:Subscription:subscriptions-block.html.twig' %}
+        </div>
+        <div id="api-plans-tab" class="plan-tab-content hidden">
+            {% include 'UserBundle:Subscription:subscriptions-block.html.twig' with {'plans': apiPlans, 'showCapabilities': 0} %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="editCreditCardModal" tabindex="-1" role="dialog"
+         aria-labelledby="editCreditCardModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="editCreditCardModalLabel">Set credit card info</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteCreditCardModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteCreditCardModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="deleteCreditCardModalLabel">Delete credit card info?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>If you do not set new Credit Card info before the paid period is expired, your subscription won't
+                        be renewed for the next month.</p>
+                    <div class="modal-buttons text-center">
+                        <button class="delete-card-button btn learnium-danger-btn">Continue</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="changePlanModal" tabindex="-1" role="dialog" aria-labelledby="changePlanModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="changePlanModalLabel">Change plan</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="contactUsModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="contactUsModalLabel">Contact Us</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="contactUsMessage" class="control-label">Message</label>
+                        <textarea id="contactUsMessage" class="form-control"></textarea>
+                    </div>
+                    <button class="btn learnium-primary-btn send-contact-us" type="button">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+        Stripe.setPublishableKey('{{ stripe_public_key }}');
+    </script>
+
+    {% javascripts filter='?uglifyjs2'
+        '@UserBundle/Resources/public/js/subscriptions.js'
+        'assets/vendor/jquery/jquery.maskedinput.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+

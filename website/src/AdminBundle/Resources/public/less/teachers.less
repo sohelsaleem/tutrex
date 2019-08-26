@@ -1,0 +1,30 @@
+.teachers-table {
+  word-break: break-all;
+
+  .banned-caption {
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  .banned {
+    .ban-user-block {
+      display: none;
+    }
+  }
+
+  .unbanned {
+    .unban-user-block {
+      display: none;
+    }
+  }
+
+  .action-block {
+    display: inline-block;
+    margin-right: 0.5em;
+    &.invisible {
+      visibility: hidden;
+    }
+  }
+}
+

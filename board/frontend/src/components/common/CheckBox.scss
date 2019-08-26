@@ -1,0 +1,32 @@
+.label {
+    margin: 0 0.25em;
+    display: inline-flex;
+    align-items: center;
+}
+
+.checkBox {
+    display: none;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.iconBox {
+    display: inline-block;
+    background: #fff;
+    height: 1em;
+    width: 1em;
+    border-radius: 2px;
+    box-sizing: border-box;
+    border: 1px solid #ebebeb;
+}
+
+.iconBoxChecked {
+    background: url('assets/document/checkbox-on.svg') no-repeat center;
+    background-size: contain;
+}
+
+.iconBoxPartialChecked {
+    background: #3ea1f6;
+    border: 0.25em solid #fff;
+}

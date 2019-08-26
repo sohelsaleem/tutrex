@@ -1,0 +1,63 @@
+.colorButton {
+    margin: 0 0.5em;
+    height: 1.5em;
+
+    font-size: 1em;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.strokeFillPanel {
+    height: 1.5em;
+    margin-right: 2em;
+
+    display: flex;
+    flex: 3 1 auto;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity .5s ease;
+    opacity: 1;
+
+    @media(max-width: 1440px) {
+        flex-wrap: wrap;
+        height: auto;
+        margin: 0;
+
+        @media(min-width: 1024px) {
+            flex-basis: 30em;
+        }
+
+        > div {
+            margin: .5em 0;
+        }
+    }
+
+    &.disabled {
+        opacity: .2;
+        cursor: not-allowed;
+
+        > * {
+            pointer-events: none;
+        }
+    }
+}
+
+.strokeWidthContainer {
+    display: flex;
+    align-items: center;
+}
+
+.strokeWidth {
+    width: 6em;
+}
+
+.strokeWidthHint {
+    width: 1.5em;
+    margin: 0 1em;
+
+    font-size: 1em;
+    text-align: right;
+}

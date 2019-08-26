@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% javascripts filter='?uglifyjs2'
+    '@AppBundle/Resources/public/js/timezone.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+{% endblock %}

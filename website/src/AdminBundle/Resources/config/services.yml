@@ -1,0 +1,4 @@
+services:
+  config.manager:
+    class: AdminBundle\Manager\ConfigManager
+    arguments: ['@service_container']

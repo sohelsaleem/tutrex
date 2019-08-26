@@ -1,0 +1,57 @@
+{% if teachers|length != 0 %}
+    <table class="teachers-table table">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subscription</th>
+            <th>Actions</th>
+        </tr>
+        {% for teacher in teachers %}
+
+            {% if teacher.banned == false %}
+                {% set userClass = 'unbanned' %}
+            {% else %}
+                {% set userClass = 'banned' %}
+            {% endif %}
+            <tr class="teacher-row {{ userClass }}" data-user-id="{{ teacher.id }}">
+                <td><a href="{{ path('admin_show_teacher_capabilities', {'id': teacher.id}) }}">{{ teacher.name }}</a>
+                </td>
+                <td>{{ teacher.email }}</td>
+                <td>{{ teacher.plan ? teacher.plan.name : '' }}
+                    {{ teacher.plan and teacher.plan.period and teacher.plan.name != 'Basic'
+                    ?teacher.plan.period
+                    :'' }}
+                </td>
+                <td>
+                    {% if teacher.enabled %}
+                        <div class="action-block">
+                            <a class="btn learnium-success-btn brn"
+                               href="{{ path('homepage', {'_switch_user':teacher.username}) }}" data-toggle="modal">Login
+                                as</a>
+                        </div>
+                    {% else %}
+                        <div class="action-block">
+                            <a class="btn learnium-success-btn brn"
+                               href="{{ path('admin_enable_teacher', {id: teacher.id}) }}">Activate user</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="ban-user-block action-block">
+                        <button class="ban-user-button ban-action btn learnium-primary-btn">Ban user</button>
+                    </div>
+                    <div class="unban-user-block action-block">
+                        <button class="unban-user-button ban-action btn learnium-primary-btn">Unban user</button>
+                        <span class="banned-caption">Banned</span>
+                    </div>
+                    <div class="delete-user-block action-block">
+                        <input class="teacher-id" type="hidden" value="{{ teacher.id }}"/>
+                        <a class="show-delete-teacher-modal btn learnium-danger-btn brn" href="#" data-toggle="modal"
+                           data-target="#delete-teacher-modal">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="alert alert-info info-message">Users are not found</p>
+{% endif %}

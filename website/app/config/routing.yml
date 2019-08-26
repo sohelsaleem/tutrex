@@ -1,0 +1,66 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+user:
+    resource: "@UserBundle/Controller/"
+    type: annotation
+
+admin:
+    resource: "@AdminBundle/Controller/"
+    type: annotation
+
+storage:
+    resource: "@StorageBundle/Controller/"
+    type:     annotation
+
+api_v1:
+    resource: "@ApiBundle/Controller/"
+    type: annotation
+    prefix: /api/v1
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+check_login_ajax:
+    pattern:  /check_login_ajax
+    defaults: { _controller: FOSUserBundle:Security:check }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+reset_password_ajax:
+    pattern:  /reset_password_ajax
+    defaults: { _controller: FOSUserBundle:Resetting:request }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+reset_send_email_ajax:
+    pattern:  /reset_send_email_ajax
+    defaults: { _controller: FOSUserBundle:Resetting:sendEmail }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+change_password_ajax:
+    pattern:  /change_password_ajax
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+login_ajax:
+    pattern:  /login_ajax
+    defaults: { _controller: FOSUserBundle:Security:login }
+    requirements:
+        _method: POST
+    options:
+        expose: true

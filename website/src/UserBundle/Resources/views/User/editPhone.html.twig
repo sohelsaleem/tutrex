@@ -1,0 +1,26 @@
+{% form_theme editPhoneForm 'bootstrap_3_layout.html.twig' %}
+
+<div class="phone-form profile-form-block">
+    {{ form_start(editPhoneForm) }}
+    <div class="form-group {{ editPhoneForm.phone.vars.errors|length > 0 ? 'has-error' : '' }}">
+        <label class="profile-label">
+            Phone number
+        </label>
+
+        <div class="view-field-block">
+            <span class="profile-field">{{ user.phone|phone_number_format() }}</span>
+            <span class="edit-phone-button edit-button glyphicon glyphicon-pencil"
+                  data-href="{{ path('user_get_edit_phone_form_ajax', {id: user.id}) }}"></span>
+        </div>
+        <div class="edit-field-block">
+            {{ form_widget(editPhoneForm.phone) }}
+            <div class="field-actions">
+                <span class="save-phone-button save-button glyphicon learning-ok"
+                      data-href="{{ path('user_edit_phone_ajax', {id: user.id}) }}"></span>
+                <span class="cancel-button glyphicon learning-remove"></span>
+            </div>
+            {{ form_errors(editPhoneForm.phone) }}
+        </div>
+    </div>
+    {{ form_end(editPhoneForm) }}
+</div>

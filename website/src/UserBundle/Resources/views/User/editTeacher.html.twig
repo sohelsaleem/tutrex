@@ -1,0 +1,15 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'edit-teacher-form'}}) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.phone) }}
+    <input class="teacher-id-for-editing" type="hidden" value="{{ teacher.id }}">
+
+<div class="modal-buttons text-center">
+    <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="edit-teacher-button btn learnium-secondary-btn">Edit</button>
+</div>
+{{ form_end(form) }}

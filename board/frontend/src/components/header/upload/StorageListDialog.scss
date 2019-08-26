@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 0.5rem;
+}
+
+.info{
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #939daa;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken(#f3f5f7, 5%);
+    }
+}

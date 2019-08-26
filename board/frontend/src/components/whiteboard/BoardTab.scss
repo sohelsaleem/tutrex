@@ -1,0 +1,63 @@
+@import '../CommonConstants';
+
+.boardTab {
+    padding: .3em 1em;
+
+    background-color: #f4f5f7;
+    color: $darkGreyColor;
+
+    display: flex;
+
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color .5s ease;
+
+    &:hover {
+        background-color: white;
+    }
+}
+
+.tabActive {
+    background-color: white;
+
+    cursor: auto;
+}
+
+.tabDisabled {
+    cursor: not-allowed;
+}
+
+.label {
+    flex: 0 1 auto;
+
+    margin: auto;
+
+    max-width: 10em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    color: inherit;
+}
+
+.closeButton {
+    flex: 0 0 auto;
+    align-self: center;
+    margin-left: 0.5em;
+
+    height: 100%;
+    width: 0.7em;
+
+    cursor: pointer;
+
+    background: url(assets/whiteboardTabs/closeTab.svg) no-repeat center;
+    background-size: contain;
+}
+
+.renamingInput {
+    height: 100%;
+    border: none;
+    color: #3b4553;
+    outline-width: 0;
+    width: 6.4em;
+}

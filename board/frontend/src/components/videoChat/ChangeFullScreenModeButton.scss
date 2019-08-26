@@ -1,0 +1,18 @@
+@import '../header/HeaderConstants';
+
+.changeFullScreenModeButton {
+    width: 1.5em;
+    height: 1.5em;
+
+    background-position: center;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-image: url(assets/document/fullscreen.svg);
+    transition: opacity .5s ease;
+
+    cursor: pointer;
+
+    &:hover {
+        opacity: $header-buttons-opacity-hover;
+    }
+}

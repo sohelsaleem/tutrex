@@ -1,0 +1,23 @@
+services:
+ s3_credentials:
+        class: Aws\Credentials\Credentials
+        arguments: ['%aws_access_key%', '%aws_secret%']
+ s3_client:
+        class: Aws\S3\S3Client
+        arguments:
+            - version: '%aws_version%'
+              region: '%aws_region%'
+              credentials: '@s3_credentials'
+ file.manager:
+        class: StorageBundle\Utils\FileManager
+        arguments: ['@knp_gaufrette.filesystem_map']
+ storage.manager:
+        class: StorageBundle\Utils\StorageManager
+        arguments: ["@doctrine.orm.entity_manager", "@service_container", "@file.manager"]
+ param_converter.slug_folder_converter:
+        class: StorageBundle\Utils\FolderParamConverter
+        tags:
+            - { name: request.param_converter, converter: slug_folder_converter }
+        arguments:
+            - "@?doctrine"
+            - "@storage.manager"

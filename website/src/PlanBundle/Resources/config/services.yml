@@ -1,0 +1,14 @@
+services:
+    plan.manager:
+        class: PlanBundle\Manager\PlanManager
+        arguments: ["@service_container"]
+    user.logo_uploader:
+        class: UserBundle\Utils\FileUploader
+        arguments: ['%logo_directory%']
+    user.doctrine_logo_listener:
+        class: UserBundle\EventListener\LogoUploaderListener
+        arguments: ['@user.logo_uploader']
+        tags:
+          - {name: doctrine.event_listener, event: prePersist}
+          - {name: doctrine.event_listener, event: preUpdate}
+          - {name: doctrine.event_listener, event: postLoad}

@@ -1,0 +1,11 @@
+module.exports = {
+    noSSL: true,
+    simpleAuth: true,
+    simpleAuthDelay: 1000,
+    simpleRoomNotifier: true,
+    simpleStorageApi: true,
+    kurentoURL: 'ws://localhost:8888/kurento',
+    filesURL: 'http://localhost:3000/serverFiles',
+    filesPath: 'path\\to\\learnium\\frontend\\serverFiles',
+    apiURL: 'https://dev.learnium.fora-soft.com/api/v1'
+};

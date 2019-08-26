@@ -1,0 +1,47 @@
+.documentPager {
+    flex: none;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    padding: .125em;
+}
+
+.backButton {
+    background-image: url(assets/document/back.svg);
+
+    &:hover {
+        opacity: .5;
+    }
+}
+
+.pages {
+    margin: 0 .25em;
+    padding: 0 .25em;
+
+    display: flex;
+    align-items: center;
+
+    input {
+        padding: .125em;
+        font-size: .9em;
+
+        border-radius: 2px;
+        border: none;
+
+        text-align: center;
+    }
+
+    .delimiter {
+        margin: 0 .25em;
+    }
+}
+
+.nextButton {
+    background-image: url(assets/document/next.svg);
+
+    &:hover {
+        opacity: .5;
+    }
+}

@@ -1,0 +1,63 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block title %}Teachers{% endblock %}
+
+{% form_theme userFilterForm 'bootstrap_3_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@AdminBundle/Resources/public/less/teachers.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% if teachers|length != 0 %}
+            <div class="col-xs-12 col-md-2">
+                {{ form_start(userFilterForm) }}
+                {{ form_row(userFilterForm.name) }}
+                {{ form_end(userFilterForm) }}
+            </div>
+        {% endif %}
+        <div class="teachers-table-block col-xs-12">
+            {% include 'AdminBundle::teachersTable.html.twig' %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-teacher-modal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteTeacherModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="deleteTeacherModalLabel">Delete the teacher</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="teacher-id" type="hidden">
+                    <p class="text-center">Are you sure to delete master teacher? <br/>All her/his teachers will be
+                        deleted.</p>
+                    <div class="modal-buttons text-center">
+                        <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+                        <button class="delete-teacher-button btn learnium-danger-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% javascripts filter='?uglifyjs2'
+        '@AdminBundle/Resources/public/js/teachers.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

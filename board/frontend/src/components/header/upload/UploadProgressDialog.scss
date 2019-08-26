@@ -1,0 +1,20 @@
+.convertingProgress {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .circularContainer {
+        margin: 2.5em;
+    }
+}
+
+.cancelButtonContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.errorText {
+    margin: 2em 0 4em 0;
+    text-align: center;
+}

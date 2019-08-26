@@ -1,0 +1,32 @@
+{
+    "parser": "babel-eslint",
+    "plugins": [
+        "babel",
+        "react",
+        "promise"
+    ],
+    "env": {
+        "browser" : true
+    },
+    "globals": {
+        "__DEV__"      : false,
+        "__TEST__"     : false,
+        "__PROD__"     : false,
+        "__COVERAGE__" : false
+    },
+    "rules": {
+        "react/no-multi-comp": 0,
+        "import/default": 0,
+        "import/no-duplicates": 0,
+        "import/named": 0,
+        "import/namespace": 0,
+        "import/no-unresolved": 0,
+        "indent": [2, 4, {"SwitchCase": 1}],
+        "comma-dangle": 0,
+        "no-console": 0,
+        "no-alert": 0,
+        "curly": 0,
+        "no-use-before-define": 0,
+        "id-length": 0
+    }
+}

@@ -1,0 +1,74 @@
+@import "../../../../AppBundle/Resources/public/less/variables.less";
+.add-button-block {
+  margin-bottom: 20px;
+}
+
+.action-link {
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
+    text-decoration: none;
+    outline: none;
+  }
+
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+  margin-right: 20px;
+}
+
+.show-edit-teacher-modal-button {
+
+  .hover-edit-icon {
+    display: none;
+  }
+
+  &:hover {
+    .hover-edit-icon {
+      display: inline;
+    }
+
+    .edit-icon {
+      display: none;
+    }
+  }
+}
+
+
+.show-delete-teacher-modal-button {
+  .hover-delete-icon {
+    display: none;
+  }
+
+  &:hover {
+    .hover-delete-icon {
+      display: inline;
+    }
+
+    .delete-icon {
+      display: none;
+    }
+  }
+}
+
+.teachers-table-block {
+  .table {
+    word-break: break-all;
+
+    tr {
+      th {
+        &.actions {
+          width: 100px;
+        }
+        color: @learnium-gray;
+      }
+      td, th {
+        line-height: 40px !important;
+        border:0 !important;
+      }
+    }
+  }
+
+}

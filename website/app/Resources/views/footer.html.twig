@@ -1,0 +1,6 @@
+<footer class="landing-footer">
+    <a href="{{ path('app_show_privacy_policy') }}">Privacy Policy</a>
+    {% if not app.request.attributes.get('reseller') or app.request.attributes.get('reseller').apiEnabled %}
+        <a href="{{ path('developer_api') }}">API Documentation</a>
+    {% endif %}
+</footer>

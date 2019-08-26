@@ -1,0 +1,71 @@
+@import '../../../components/CommonConstants';
+
+.macroToolButton {
+    position: relative;
+}
+
+.front {
+    width: 100%;
+    position: relative;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    .expandButton {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        width: 40%;
+        height: 40%;
+
+        box-sizing: border-box;
+        cursor: pointer;
+
+        &:after {
+            content: '';
+            border: 0.35em solid transparent;
+            box-sizing: border-box;
+            border-right-color: #d4d7da;
+            border-bottom-color: #d4d7da;
+            transition: border-color .5s ease;
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        &:hover {
+            &:after {
+                border-right-color: #8e949d;
+                border-bottom-color: #8e949d;
+            }
+        }
+    }
+
+    .activeExpandButton:after {
+        border-right-color: #8e949d !important;
+        border-bottom-color: #8e949d !important;
+    }
+}
+
+.optionsContainer {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    .optionsList {
+        position: fixed;
+        z-index: 2;
+
+        background: $panelBackgroundLight;
+
+        display: flex;
+        flex-flow: row wrap;
+    }
+}

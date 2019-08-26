@@ -1,0 +1,46 @@
+.itemContainer {
+    margin: 0.5em 0;
+    display: flex;
+    align-items: center;
+
+    .nameContainer {
+        flex: 2;
+
+        display: flex;
+    }
+}
+
+.attendeeName {
+    flex: 1 0;
+}
+
+.nameSuffix {
+    flex: 1 0;
+
+    color: #b7bbc7;
+
+    display: flex;
+    justify-content: center;
+}
+
+.controlsContainer {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+
+    .imgContainer {
+        height: 100%;
+        flex-basis: 20%;
+        display: flex;
+        align-items: center;
+
+        img {
+            cursor: pointer;
+        }
+
+        &.invisible {
+            visibility: hidden;
+        }
+    }
+}

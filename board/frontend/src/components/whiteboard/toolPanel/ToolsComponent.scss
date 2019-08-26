@@ -1,0 +1,23 @@
+@import '../../../components/CommonConstants';
+
+.toolPanel {
+    width: 50px;
+    height: 100%;
+
+    background: $panelBackgroundLight;
+    margin: 1px;
+    box-shadow: 1px 1px 3px #CCC;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.toolsContainer {
+    position: relative;
+
+    padding-top: 9px;
+
+    display: flex;
+    flex-flow: column nowrap;
+}

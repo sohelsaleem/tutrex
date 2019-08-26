@@ -1,0 +1,100 @@
+<div class="plan" data-teachers="{{ plan.numberOfTeachers|join(',') }}"
+     data-students="{{ plan.studentsInClassroom|join(',') }}" data-planName="{{ plan.name }}">
+    <h3 class="plan-name noselect">{{ plan.name }}</h3>
+    <p class="sub-line"></p>
+    <div class="plan-price-container">
+        {% if plan.name == 'Basic' or plan.name == 'API Basic' %}
+            <div class="plan-price noselect">Free</div>
+        {% else %}
+            <div class="plan-price noselect">
+                <sup>$</sup><span class="plan-price-value">{{ plan.price / 100 }}</span>/<span
+                        class="plan-period-value">mo</span>
+            </div>
+            {#<div class="plan-period-container">#}
+                {#<div class="plan-period active noselect">month</div>#}
+                {#<div class="plan-period noselect">year</div>#}
+            {#</div>#}
+        {% endif %}
+    </div>
+    {% if plan.name == 'Basic' or plan.name == 'API Basic' %}
+        <div class="capability disabled noselect">
+            <div class="capability-icon"><img src="/bundles/user/images/capability-disabled.svg"/></div>
+            <div>Lesson Recording & Playback</div>
+        </div>
+    {% else %}
+        <div class="capability noselect">
+            <div class="capability-icon"><img src="/bundles/user/images/capability.svg"/></div>
+            <div>Lesson Recording & Playback</div>
+        </div>
+    {% endif %}
+    {% if plan.concurrentLessons %}
+        <div class="plan-parameter" data-key="concurrentLessons">
+            <div class="parameter-value noselect">{{ plan.concurrentLessons }}</div>
+            <div class="noselect">concurrent {{ plan.concurrentLessons == 1 ? 'lesson' : 'lessons' }}</div>
+        </div>
+    {% endif %}
+    {% set parameter_enabled = plan.studentsInClassroom|length != 1 %}
+    <div class="plan-parameter studentsInClassroom" data-key="studentsInClassroom"
+         data-enabled="{{ parameter_enabled }}">
+        {% if parameter_enabled %}
+            <div class="parameter-controls parameter-up"></div>
+            <div class="parameter-value noselect">{{ plan.studentsInClassroom[0] }}</div>
+            <div class="parameter-controls parameter-down disabled"></div>
+            <div class="noselect">students</div>
+        {% else %}
+            <div class="parameter-value noselect">{{ plan.studentsInClassroom[0] }}</div>
+            <div class="noselect">students</div>
+        {% endif %}
+    </div>
+    {% if not plan.apiPlan %}
+        {% set parameter_enabled = plan.numberOfTeachers|length != 1 %}
+        <div class="plan-parameter numberOfTeachers" data-key="numberOfTeachers"
+             data-enabled="{{ plan.numberOfTeachers|length != 1 }}">
+            {% if parameter_enabled %}
+                <div class="parameter-controls parameter-up"></div>
+                <div class="parameter-value noselect">{{ plan.numberOfTeachers[0] }}</div>
+                <div class="parameter-controls parameter-down disabled"></div>
+                <div class="noselect">{{ plan.numberOfTeachers[0]==1?'teacher':'teachers' }}</div>
+            {% else %}
+                <div class="parameter-value noselect">{{ plan.numberOfTeachers[0] }}</div>
+                <div class="noselect">{{ plan.numberOfTeachers[0]==1?'teacher':'teachers' }}</div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="plan-parameter" data-key="minutesLessonDuration"
+         data-enabled="{{ plan.minutesLessonDuration|length != 1 }}">
+        <div class="parameter-value noselect">{{ plan.minutesLessonDuration }}</div>
+        <div class="noselect">minute lessons</div>
+    </div>
+
+    {% if plan.lessonMinutesPerMonth %}
+        <div class="plan-parameter" data-key="lessonMinutesPerMonth">
+            <div class="parameter-value noselect">{{ plan.lessonMinutesPerMonth }}</div>
+            <div class="noselect">minutes/month</div>
+        </div>
+    {% endif %}
+
+    {% if not plan.apiPlan %}
+        {% if plan.unlimitedCloudStorage %}
+            <div class="plan-parameter" data-key="storageLimit">
+                <div class="noselect">Unlimited cloud storage</div>
+            </div>
+        {% else %}
+            <div class="plan-parameter" data-key="storageLimit">
+                <div class="parameter-value noselect">{{ plan.cloudStorageSize }}</div>
+                <div class="noselect">GB cloud storage</div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="plan-parameter" data-key="billingPeriod">
+        <div class="noselect">Billed annually</div>
+    </div>
+
+    <input class="plan-stripe-id" type="hidden" value="{{ plan.stripePlanId }}">
+    {% if app.request.attributes.get('_route') == 'user_show_subscriptions' %}
+        {% include 'UserBundle:Subscription:subscriptions-plan-actions.html.twig' %}
+    {% else %}
+        {% include 'UserBundle:Subscription:landing-plan-actions.html.twig' %}
+    {% endif %}
+</div>

@@ -1,0 +1,45 @@
+services:
+    authentication.userprovider:
+        class: UserBundle\Provider\UserProvider
+        arguments: ["@fos_user.user_manager", "@plan.manager", '@request_stack', '@reseller.manager', '@user.manager', '%default_host%']
+
+    user.main_login_handler:
+        class: UserBundle\Handler\LoginHandler
+        arguments: ['@router']
+
+    user.logout_handler:
+        class: UserBundle\Handler\LogoutHandler
+        arguments: ['@router', '@session']
+
+    user.manager:
+        class: UserBundle\Manager\UserManager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    teacher.manager:
+        class: UserBundle\Manager\TeacherManager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    phone_number_validator.util:
+        class: UserBundle\Utils\PhoneNumberValidator
+
+    reseller.manager:
+        class: UserBundle\Manager\ResellerManager
+        arguments: ['@service_container']
+
+    unique_email.validator:
+        class: UserBundle\Validator\Constraints\UniqueEmailValidator
+        arguments: ['@user.manager']
+        tags:
+            - { name: validator.constraint_validator }
+
+    unique_subdomain.validator:
+        class: UserBundle\Validator\Constraints\UniqueSubdomainValidator
+        arguments: ['@user.manager']
+        tags:
+            - { name: validator.constraint_validator }
+
+    unique_external_domain.validator:
+        class: UserBundle\Validator\Constraints\UniqueExternalDomainValidator
+        arguments: ['@reseller.manager']
+        tags:
+            - { name: validator.constraint_validator }

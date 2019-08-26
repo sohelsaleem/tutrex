@@ -1,0 +1,54 @@
+@import './HeaderConstants';
+
+.front {
+    height: 100%;
+    width: 3em;
+    position: relative;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    .sharingButton {
+        height: 100%;
+        width: 100%;
+
+        background: url(assets/header/sharing.svg) no-repeat center;
+        background-size: contain;
+        transition: opacity .5s ease;
+
+        &:hover {
+            opacity: $header-buttons-opacity-hover;
+        }
+    }
+}
+
+.optionsContainer {
+    position: absolute;
+    top: 132%;
+    left: -16em;
+    right: 50%;
+    backdrop-filter: blur(5.5px);
+    background-color: rgba(0, 0, 0, 0.42);
+    border-radius: 4px;
+    z-index: 100;
+    opacity: 1;
+    visibility: visible;
+    transition:  visibility .2s linear, opacity .3s linear;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    @media(max-width: 320px) {
+        left: -7em;
+        right: auto;
+        width: 17em;
+    }
+}
+
+.notVisible {
+    opacity: 0;
+    visibility: hidden;
+    transition:  visibility .2s linear, opacity .3s linear;
+}

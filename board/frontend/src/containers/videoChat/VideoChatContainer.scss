@@ -1,0 +1,75 @@
+@import '../../components/CommonConstants';
+
+.webinarMode {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: $superDarkGreyColor;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+
+  > div {
+    flex: 1;
+  }
+}
+
+.presentationMode {
+  height: 30%;
+
+  background-color: $superDarkGreyColor;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.videosContainer {
+  height: 100%;
+  width: 100%;
+
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.videoChatsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100%;
+
+  .teacherVideoContainer {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+
+    > div {
+      width: 60%;
+    }
+  }
+
+  .studentVideosContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: 1 1 auto;
+
+    width: 100%;
+
+    > div {
+      margin: 0 1%;
+    }
+  }
+}
+
+.fullScreenButtonContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: .5em;
+}

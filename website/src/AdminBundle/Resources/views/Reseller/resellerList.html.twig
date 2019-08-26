@@ -1,0 +1,83 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block title %}Resellers{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@AdminBundle/Resources/public/less/resellers.less'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn learnium-primary-btn add-reseller-button" href="{{ path('reseller_add') }}">Add a reseller</a>
+        </div>
+        <div class="col-xs-12">
+            {% if resellers|length %}
+                <table class="resellers-table table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subdomain</th>
+                        <th>External domain</th>
+                        <th>Expiration date</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for reseller in resellers %}
+                        <tr>
+                            <td>{{ reseller.name }}</td>
+                            <td>{{ reseller.email }}</td>
+                            <td>{{ reseller.subdomain }}</td>
+                            <td>{{ reseller.externalDomain }}</td>
+                            <td>{{ reseller.expirationDate|date('d.m.Y') }}</td>
+                            <td>
+                                <a class="btn learnium-success-btn brn"
+                                   href="{{ reseller.externalDomain ? 'https://' ~ reseller.externalDomain : url('homepage')|replace({'://': '://' ~ reseller.subdomain ~ '.'}) }}">To subdomain</a>
+                                <a class="learnium-primary-btn btn" href="{{ path('reseller_edit', {reseller: reseller.id}) }}">Edit</a>
+                                <a class="{{ reseller.banned ? 'learnium-danger-btn' : 'learnium-primary-btn' }} btn" href="{{ path('reseller_toggle_ban', {reseller: reseller.id}) }}">{{ reseller.banned ? 'Unban' : 'Ban' }}</a>
+                                <a class="open-delete-reseller-modal-button btn learnium-danger-btn brn" data-toggle="modal" data-target="#deleteResellerModal" data-href="{{ path('reseller_delete', {reseller: reseller.id}) }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="alert alert-info info-message">You haven't any resellers</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteResellerModal" tabindex="-1" role="dialog" aria-labelledby="deleteResellerModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="deleteResellerModalLabel">Delete reseller</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Are you sure?</p>
+                    <div class="modal-buttons text-center">
+                        <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+                        <a class="delete-reseller-button btn learnium-danger-btn">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+{% javascripts filter='?uglifyjs2'
+'@AdminBundle/Resources/public/js/resellers.js'
+%}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{%  endblock %}

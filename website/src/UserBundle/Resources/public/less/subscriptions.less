@@ -1,0 +1,287 @@
+@import "../../../../AppBundle/Resources/public/less/variables.less";
+
+.user-subscription-info {
+  padding: 0 3em;
+}
+
+.profile-label {
+  color: @learnium-bluey-grey;
+  font-weight: 400;
+}
+
+.profile-field {
+  font-weight: 400;
+  color: @learnium-black;
+}
+
+.profile-header {
+  font-weight: 500;
+  color: @learnium-dull-blue;
+  font-size: 2.5em;
+  text-align: center;
+  margin: 2em 0 1.5em 0;
+}
+
+.credit-card-block {
+
+  .edit-credit-card {
+    margin-left: 100px;
+  }
+
+  .set-credit-card.edit-credit-card {
+    margin-left: 0;
+  }
+
+  .action-link {
+    text-decoration: none;
+    outline: none;
+
+    &:hover {
+      text-decoration: none;
+      outline: none;
+    }
+
+    &:focus {
+      text-decoration: none;
+      outline: none;
+    }
+  }
+
+  .edit-credit-card {
+    margin-left: 10px;
+
+    .hover-edit-icon {
+      display: none;
+    }
+
+    &:hover {
+      .hover-edit-icon {
+        display: inline;
+      }
+
+      .edit-icon {
+        display: none;
+      }
+    }
+  }
+
+  .delete-credit-card {
+    margin-left: 5px;
+
+    .hover-delete-icon {
+      display: none;
+    }
+
+    &:hover {
+      .hover-delete-icon {
+        display: inline;
+      }
+
+      .delete-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+.payment-errors {
+  display: none;
+}
+
+.current-plan-label {
+  color: @learnium-blue;
+  font-size: 1.3em;
+}
+
+.plans-block {
+  padding: 0 5em;
+}
+
+.subscriptions-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2em 0 4em 0;
+
+  > div {
+    margin: 0 1em 1em;
+    flex-basis: 18em;
+    flex-shrink: 1;
+  }
+
+  .plan {
+    text-align: center;
+    border-radius: 0.5em;
+    box-shadow: 0 0 50px 5px rgba(5, 84, 142, 0.07);
+    background: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+
+    font-weight: 400;
+    padding: 0 1.2em 4em;
+
+    .plan-name {
+      font-size: 1.3em;
+      font-weight: 500;
+      color: #49B0ED;
+    }
+    .sub-line {
+      width: 17px;
+      height: 3px;
+      border-radius: 100px;
+      margin: 0 auto;
+      background-color: #d2d6e6;
+    }
+
+    .plan-price-container {
+      margin: 0.8em 0;
+      height: 7.5em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .plan-price {
+        color: @learnium-dull-blue;
+        font-size: 2.5em;
+      }
+      .plan-period-container {
+        display: flex;
+        align-items: center;
+        background-color: #d1d5e640;
+        border-radius: 0.5em;
+        overflow: hidden;
+        margin: 1em 0;
+        .plan-period {
+          padding: 0.3em;
+          width: 5em;
+          border-radius: 0.5em;
+          font-size: 0.9em;
+          cursor: pointer;
+          &.active {
+            background-color: @learnium-blue;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .plan-parameter {
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1em;
+
+      .parameter-controls {
+        width: 0;
+        height: 0;
+        cursor: pointer;
+      }
+
+      .parameter-up {
+        border-left: 0.3em solid transparent;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0.6em solid @learnium-blue;
+        &.disabled {
+          border-bottom: 0.6em solid @learnium-light-gray;
+        }
+      }
+
+      .parameter-down {
+        border-left: 0.3em solid transparent;
+        border-right: 0.3em solid transparent;
+        border-top: 0.6em solid @learnium-blue;
+        margin-right: 0.5em;
+        &.disabled {
+          border-top: 0.6em solid @learnium-light-gray;
+        }
+      }
+
+      .parameter-value {
+        font-size: 1.6em;
+        font-weight: 500;
+        color: @learnium-blue;
+        margin: 0 0.25em;
+      }
+    }
+
+    .plan-action-block {
+      margin-top: 2em;
+    }
+
+    .capability {
+      justify-content: center;
+    }
+  }
+
+}
+
+.capability {
+  display: flex;
+
+  font-weight: 400;
+  color: @learnium-black;
+
+  margin-bottom: 1.3em;
+  letter-spacing: 0.05em;
+  line-height: 2em;
+  font-size: 0.9em;
+
+  .capability-icon {
+    height: 20px;
+    margin-right: 0.5em;
+    min-width: 20px;
+    img {
+      width: 100%;
+    }
+
+  }
+
+  &.disabled {
+    color: @learnium-light-gray;
+  }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+#contactUsMessage {
+  resize: none;
+}
+
+.plan-tab-selector {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0 4em;
+
+  @media(max-width: 425px) {
+    flex-direction: column;
+  }
+
+  .plan-tab {
+    flex: 1;
+    font-weight: 500;
+    color: #a1acba;
+    border-bottom: 3px solid #a1acba;
+    font-size: 2.5em;
+    cursor: pointer;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .plan-tab_active {
+    color: @learnium-dull-blue;
+    border-bottom: 3px solid @learnium-dull-blue;
+  }
+}

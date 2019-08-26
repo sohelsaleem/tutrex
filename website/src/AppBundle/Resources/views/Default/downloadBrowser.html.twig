@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Lesson{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss, cssrewrite'
+    '@AppBundle/Resources/public/less/lessonCountdown.less'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="timer-row row">
+        <div class="col-xs-12">
+            <div class="timer-wrapper">
+                Sorry, but your browser not supported. Please download <a href="https://www.google.com/chrome/browser/desktop/index.html">Google Chrome</a> or <a href="https://www.mozilla.org">Mozilla Firefox</a>.<br/>
+                Click <a href="{{ path('homepage') }}">here</a> to go back.
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+    {% javascripts filter='?uglifyjs2'
+    '@AppBundle/Resources/public/js/lessonCountdown.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{%  endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+    '@AppBundle/Resources/public/less/reset.less'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="reset-form-block col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+            <h1>Set password</h1>
+            {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+            {{ form_widget(form) }}
+            <div>
+                <input class="btn learnium-secondary-btn" type="submit" value="Set">
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

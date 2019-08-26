@@ -1,0 +1,61 @@
+<div class="dropzone hidden" id="dropzone">
+    <div class="blur-background"></div>
+    <div class="file-icon"></div>
+    <div class="dropzone-title">Drag & Drop here</div>
+</div>
+<div class="content-table">
+    {% if content.content|length > 0 %}
+        <div class="content-header content-row">
+            <div class="content-col"></div>
+            <div class="content-col title-col">Title</div>
+            <div class="content-col optional-col">Date updated</div>
+            <div class="content-col"></div>
+        </div>
+    {% endif %}
+    {% for item in content.content %}
+        <div class="content-row"
+             {% if not item.isFile() %}data-href="{{ path('storage_folder', {'slug': item.slug}) }}"{% endif %}>
+            <div class="content-col">
+                {% if item.isFile() %}
+                    <div class="file-icon"></div>
+                {% else %}
+                    <div class="folder-icon"></div>
+                {% endif %}</div>
+            <div class="content-col title-col">
+                <span class="item-name">{{ item.name }}</span>
+                <span class="edit-name-button"></span>
+            </div>
+            <div class="content-col optional-col">{{ item.updatedAt|date('j M Y') }}&nbsp;&nbsp;&nbsp;<span
+                        class="time">{{ item.updatedAt|date('h:ia')|upper() }}</span></div>
+            <div class="content-col">
+                <div class="more-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+                <ul class="dropdown-menu">
+                    {% if item.isFile() %}
+                        <li>
+                            <a class="download-link" href="{{ path('storage_download', {id: item.id}) }}"
+                               target="_blank">
+                            <span class="glyphicon glyphicon-download"></span>&nbsp;
+                                Download
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="delete-item">
+                        <span class="glyphicon glyphicon-trash" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false"></span>&nbsp;
+                        Delete
+                    </li>
+                </ul>
+            </div>
+            <input type="hidden" class="content-id" value="{{ item.id }}"/>
+            <input type="hidden" class="content-type" value="{{ item.isFile()?'file':'folder' }}"/>
+        </div>
+    {% endfor %}
+</div>
+<script>
+    var STORAGE_PARAMETERS = {
+        used: '{{ content.storage.used }}',
+        total: '{{ content.storage.total }}',
+        usedRaw: '{{ content.storage.usedRaw }}',
+        totalRaw: '{{ content.storage.totalRaw }}'
+    };
+</script>

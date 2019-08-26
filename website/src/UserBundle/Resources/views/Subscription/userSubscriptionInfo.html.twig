@@ -1,0 +1,11 @@
+<div>
+    <p>Current subscription plan: {{ app.user.plan.name }}</p>
+
+    {% if app.user.plan.name != 'Basic' %}
+        <p>Expiration date: {{ subscription.current_period_end|date("d M Y") }}</p>
+    {% endif %}
+</div>
+
+<div class="credit-card-block">
+    {% include 'UserBundle:Subscription:creditCardBlock.html.twig' %}
+</div>

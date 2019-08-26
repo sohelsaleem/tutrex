@@ -1,0 +1,19 @@
+.warning {
+    text-align: center;
+    margin: 2em 0 4em 0;
+}
+
+.informationText {
+    margin: 2em 0 4em 0;
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    & > button {
+        margin: 0 1em;
+    }
+}

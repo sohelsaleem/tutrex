@@ -1,0 +1,66 @@
+{% form_theme capabilitiesEditForm 'bootstrap_3_layout.html.twig' %}
+
+<h4>Current capabilities:</h4>
+<input class="teacher-id" type="hidden" value="{{ teacher.id }}">
+<p><a class="edit-capabilities" href="#">Edit</a></p>
+<p class="edit-capabilities-buttons-block"><a class="save-capabilities" href="#">Save</a><a
+            class="cancel-edit-capabilities" href="#">Cancel</a></p>
+{{ form_start(capabilitiesEditForm) }}
+
+{{ form_errors(capabilitiesEditForm.numberOfTeachers) }}
+
+<p>
+    {{ form_widget(capabilitiesEditForm.numberOfTeachers, {'attr': {'class': 'teachers-field capability-edit-field', 'value': teacher.numberOfTeachers}}) }}
+    {% if teacher.numberOfTeachers == teacher.plan.numberOfTeachers[0] %}
+        <span class="teachers capability-value">{{ teacher.numberOfTeachers }}</span>{{ teacher.numberOfTeachers ==1?' teacher':' teachers' }}
+    {% else %}
+        <span class="highlighted teachers capability-value">{{ teacher.numberOfTeachers }}</span> {{ teacher.numberOfTeachers ==1?' teacher':' teachers' }}
+    {% endif %}
+</p>
+{{ form_errors(capabilitiesEditForm.studentsInClassroom) }}
+<p>
+    {{ form_widget(capabilitiesEditForm.studentsInClassroom, {'attr': {'class': 'students-in-classroom-field capability-edit-field', 'value': teacher.studentsInClassroom}}) }}
+    {% if teacher.studentsInClassroom == teacher.plan.studentsInClassroom[0] %}
+        <span class="students-in-classroom capability-value">{{ teacher.studentsInClassroom }}</span> students in classroom
+    {% else %}
+        <span class="highlighted students-in-classroom capability-value">{{ teacher.studentsInClassroom }}</span> students in classroom
+    {% endif %}
+</p>
+{{ form_errors(capabilitiesEditForm.minutesLessonDuration) }}
+<p>
+    {{ form_widget(capabilitiesEditForm.minutesLessonDuration, {'attr': {'class': 'hour-lesson-duration-field capability-edit-field', 'value': teacher.minutesLessonDuration}}) }}
+    {% if teacher.minutesLessonDuration == teacher.plan.minutesLessonDuration %}
+        <span class="hour-lesson-duration capability-value">{{ teacher.minutesLessonDuration }}</span>  minutes lesson duration
+    {% else %}
+        <span class="highlighted hour-lesson-duration capability-value">{{ teacher.minutesLessonDuration }}</span>  minutes lesson duration
+    {% endif %}
+</p>
+{{ form_errors(capabilitiesEditForm.storageLimit) }}
+<p>
+    {{ form_widget(capabilitiesEditForm.storageLimit, {'attr': {'class': 'storage-limit-field capability-edit-field', 'value': teacher.storageLimit / 1024 / 1024 / 1024,  'step':'0.1'}}) }}
+    {% if teacher.storageLimit is null or teacher.storageLimit  == teacher.getPlanStorageLimit() %}
+        <span class="storage-limit capability-value">{{ teacher.storageLimit / 1024 / 1024 / 1024 }}</span>  GB
+    {% else %}
+        <span class="highlighted storage-limit capability-value">{{ teacher.storageLimit / 1024 / 1024 / 1024 }}</span>  GB
+    {% endif %}
+</p>
+
+{% if not teacher.reseller or teacher.reseller.apiEnabled %}
+    {{ form_errors(capabilitiesEditForm.apiConcurrentLessons) }}
+    <p>
+        {{ form_widget(capabilitiesEditForm.apiConcurrentLessons, {'attr': {'class': 'capability-edit-field', 'value': teacher.apiConcurrentLessons}}) }}
+        <span class="{% if teacher.apiConcurrentLessons != teacher.apiPlan.concurrentLessons %}highlighted{% endif %} capability-value">{{ teacher.apiConcurrentLessons }}</span> concurrent API lessons
+    </p>
+    {{ form_errors(capabilitiesEditForm.apiStudentsInClassroom) }}
+    <p>
+        {{ form_widget(capabilitiesEditForm.apiStudentsInClassroom, {'attr': {'class': 'capability-edit-field', 'value': teacher.apiStudentsInClassroom }}) }}
+        <span class="{% if teacher.apiStudentsInClassroom != teacher.apiPlan.studentsInClassroom[0] %}highlighted{% endif %} capability-value">{{ teacher.apiStudentsInClassroom }}</span> students in API classroom
+    </p>
+    {{ form_errors(capabilitiesEditForm.apiMinutesLessonDuration) }}
+    <p>
+        {{ form_widget(capabilitiesEditForm.apiMinutesLessonDuration, {'attr': {'class': 'capability-edit-field', 'value': teacher.apiMinutesLessonDuration }}) }}
+        <span class="{% if teacher.apiMinutesLessonDuration != teacher.apiPlan.minutesLessonDuration %}highlighted{% endif %} capability-value">{{ teacher.apiMinutesLessonDuration }}</span> minutes API lesson duration
+    </p>
+{% endif %}
+
+{{ form_end(capabilitiesEditForm) }}

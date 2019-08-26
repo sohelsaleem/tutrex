@@ -1,0 +1,35 @@
+.colorPicker {
+    position: absolute;
+    top: 100%;
+    margin: 1.2em 0;
+    z-index: 2;
+
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(5.5px);
+
+    @media(max-width: 365px) {
+        left: -5.15em;
+    }
+}
+
+.colorGrid {
+    padding: 1.15em;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    .colorRectangle {
+        margin: 0.35em;
+        width: 1.9em;
+        height: 1.3em;
+
+        border-radius: 2px;
+        cursor: pointer;
+    }
+}
+
+.transparentColor {
+    background: url('assets/header/transparentColor.svg') no-repeat center;
+    background-size: 100% 100%;
+}

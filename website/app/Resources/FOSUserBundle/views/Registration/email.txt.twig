@@ -1,0 +1,17 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+{% autoescape false %}
+Registration
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+Hello {{ user.name }}!
+
+To finish activating your account - please visit {{ confirmationUrl }}
+
+Regards,
+the Team.
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block title %}My profile{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@UserBundle/Resources/public/less/profile.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="edit-forms">
+        {% include 'UserBundle:User:editName.html.twig' %}
+        {% include 'UserBundle:User:editEmail.html.twig' %}
+    </div>
+
+    <div class="profile-form-block">
+        <label class="profile-label">
+            Password
+        </label>
+        <span class="profile-field">**********</span>
+        <span class="change-password-button glyphicon glyphicon-pencil"></span>
+    </div>
+
+    <div class="edit-forms">
+        {% include 'UserBundle:User:editPhone.html.twig' %}
+        {% if (not app.user.reseller or app.user.reseller.isAllowSubdomains) and is_granted('ROLE_TEACHER') %}
+            {% include 'UserBundle:User:editSubdomain.html.twig' %}
+        {% endif %}
+    </div>
+
+    {% if is_granted('ROLE_TEACHER') and (app.user.plan and app.user.plan.name != 'Basic') %}
+        <div class="edit-forms" id="logo-form-block">
+            {% include 'UserBundle:User:editLogo.html.twig' %}
+        </div>
+    {% endif %}
+
+    {# <p>Current subscription plan: {{ app.user.plan.name }}</p> #}
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog"
+         aria-labelledby="changePasswordModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="changePasswordModalLabel">Change password</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+    {% block javascript %}
+        {{ parent() }}
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        {% javascripts filter='?uglifyjs2'
+            '@UserBundle/Resources/public/js/profile.js'
+            '@UserBundle/Resources/public/js/uploadLogo.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}

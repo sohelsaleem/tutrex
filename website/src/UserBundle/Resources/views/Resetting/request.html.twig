@@ -1,0 +1,6 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_row(form.email) }}
+    <input class="restore-button btn learnium-secondary-btn" type="submit" value="Reset password">
+{{ form_end(form) }}

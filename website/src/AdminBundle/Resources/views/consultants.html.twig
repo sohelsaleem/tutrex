@@ -1,0 +1,153 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block title %}Consultants{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+    '@AdminBundle/Resources/public/less/consultants.less'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 top-block">
+            <button class="btn learnium-primary-btn get-add-consultant-form-button" type="button">Add a consultant</button>
+        </div>
+        <div class="consultants-table-block col-xs-12">
+            {% include 'AdminBundle::consultantsTable.html.twig' %}
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="add-consultant-modal" tabindex="-1" role="dialog" aria-labelledby="addConsultantModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="addConsultantModalLabel">Add a consultant</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="consultant-form">
+
+                    </div>
+                    <div class="modal-buttons text-center">
+                        <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="add-consultant-button btn learnium-info-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="edit-consultant-modal" tabindex="-1" role="dialog" aria-labelledby="editConsultantModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="editConsultantModalLabel">Edit the consultant</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="consultant-id" type="hidden">
+                    <div class="consultant-form">
+
+                    </div>
+                    <div class="modal-buttons text-center">
+                        <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="edit-consultant-button btn learnium-info-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-consultant-modal" tabindex="-1" role="dialog" aria-labelledby="deleteConsultantModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="deleteConsultantModalLabel">Delete the consultant</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="consultant-id" type="hidden">
+                    <p>Are you sure?</p>
+                    <div class="modal-buttons text-center">
+                        <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="delete-consultant-button btn learnium-danger-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reset-consultant-password-modal" tabindex="-1" role="dialog" aria-labelledby="resetConsultantPasswordModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="resetConsultantPasswordModalLabel">Reset the consultant password</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="consultant-id" type="hidden">
+                    <p>Are you sure?</p>
+                    <div class="modal-buttons text-center">
+                        <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="reset-consultant-password-button btn learnium-primary-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="messageModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="message"></p>
+                    <div class="modal-buttons text-center">
+                        <button class="ok-button btn learnium-primary-btn" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+    {% javascripts filter='?uglifyjs2'
+    '@AdminBundle/Resources/public/js/consultants.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{%  endblock %}

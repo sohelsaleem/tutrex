@@ -1,0 +1,83 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block title %}SSL{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        'assets/vendor/jquery-ui/jquery-ui.css'
+        '@AdminBundle/Resources/public/less/certificates.less'%}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="spinner hidden"><span class="fa fa-spinner fa-spin"></span></div>
+            <h1 class="cert-header">Domains:</h1>
+            <ul class="cert-domain-list">
+                {% for domain in domains %}
+                    <li>
+                        <div class="cert-domain">
+                            <span class="cert-domain-name">{{ domain.name }}</span>
+                            <a class="cert-domain-delete btn learnium-danger-btn">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="cert-domain-new">
+                <input type="text" class="cert-domain-new-name form-control"/>
+                <a class="cert-domain-add btn learnium-primary-btn">Add domain</a>
+            </div>
+            <a class="cert-prepare btn learnium-primary-btn">Obtain data for domain verification</a>
+            <h1 class="cert-header">Make sure you created the following DNS records before generating SSL certificate:</h1>
+            <div class="alert alert-danger cert-dns-failed {% if not certificateFailed %}hidden{% endif %}">
+                Please, obtain new data for domain verification in order to generate SSL certificate.
+            </div>
+            <div class="cert-dns-records {% if certificateFailed %}hidden{% endif %}">
+                {% for domain in domains %}
+                    <div>
+                        <div class="cert-record">
+                            <p class="cert-record-row"><span class="cert-record-key">Type: </span><span class="cert-record-type">A</span></p>
+                            <p class="cert-record-row"><span class="cert-record-key">Name: </span><span class="cert-record-name">{{ domain.name }}</span></p>
+                            <p class="cert-record-row"><span class="cert-record-key">Value: </span><span class="cert-record-value">34.197.72.4</span></p>
+                        </div>
+                    </div>
+                    {% if domain.code %}
+                        <div>
+                            <div class="cert-record">
+                                <p class="cert-record-row"><span class="cert-record-key">Type: </span><span class="cert-record-type">TXT</span></p>
+                                <p class="cert-record-row"><span class="cert-record-key">Name: </span><span class="cert-record-name">_acme-challenge.{{ domain.name[2:] }}</span></p>
+                                <p class="cert-record-row"><span class="cert-record-key">Value: </span><span class="cert-record-value">{{ domain.code }}</span></p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <a class="cert-generate btn learnium-primary-btn {% if certificateFailed %}disabled{% endif %}">Generate certificate</a>
+            <div class="alert alert-danger cert-error hidden">
+                <p class="cert-error-message">Something has gone wrong. Probably DNS records were not configured. The more info is below.</p>
+                <div class="cert-error-info-container">
+                    <a data-toggle="collapse" href="#certErrorInfo" aria-expanded="false" aria-controls="certErrorInfo">More info</a>
+                    <p class="cert-error-info collapse" id="certErrorInfo"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% javascripts filter='?uglifyjs2'
+'assets/vendor/jquery-ui/jquery-ui.js'
+'@AdminBundle/Resources/public/js/certificates.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

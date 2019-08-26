@@ -1,0 +1,160 @@
+@import "variables";
+.page-title {
+  text-align: center;
+}
+
+.tools-col {
+  > a, > button {
+    margin-bottom: 20px;
+  }
+
+  .schedule-now-button {
+    margin-right: 10px;
+    background: #ff7f27;
+  }
+}
+
+.lessons-table {
+  word-break: break-all;
+
+  .optional-col {
+    @media(max-width: 991px) {
+      display: none;
+    }
+  }
+
+  tr {
+    td, th {
+      font-weight: 400;
+      line-height: 40px !important;
+      border:0 !important;
+    }
+    th {
+      font-weight: 600;
+      &.actions {
+        width: 100px;
+      }
+      color: @learnium-gray;
+    }
+  }
+  .lesson-line {
+    span {
+      &.coming {
+
+      }
+      &.expired {
+        color: @learnium-red;
+        opacity: 0.3;
+      }
+      &.past {
+        opacity: 0.3;
+      }
+    }
+  }
+}
+
+.lesson-options-column {
+  position: relative;
+  width: 120px;
+
+  .dropdown-menu {
+    background-color: #3a414a;
+    left: auto;
+    right: 0;
+
+    li {
+      a {
+        color: #fff;
+        &:hover {
+          background-color: #61676E;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .conf-icon {
+    padding: 0 4px;
+    font-size: 20px;
+  }
+
+  .lesson-options,.lesson-video {
+    position: absolute;
+    cursor: pointer;
+    top: 8px;
+    left: 8px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+
+    .empty-option {
+      display: none;
+    }
+  }
+  .lesson-video {
+    left: 32px;
+  }
+}
+
+.bootstrap-timepicker-widget {
+  z-index: 1100 !important;
+}
+
+.lesson-id {
+  display: none;
+}
+
+.lesson-form {
+  .create-lesson-field-label {
+    font-weight: bold;
+  }
+
+  .date-field-block {
+    width: 115px;
+    display: inline-block;
+
+    #lesson_form_date {
+      background: none;
+    }
+  }
+
+  .time-field-block {
+    width: 90px;
+    display: inline-block;
+
+    #lesson_form_time {
+      background: none;
+    }
+  }
+
+  .duration-hours-field-block, .duration-minutes-field-block {
+    width: 65px;
+    display: inline-block;
+  }
+
+  .duration-minutes-field-block {
+    margin-left: 10px;
+  }
+}
+
+.lesson-link-column {
+  display: none;
+}
+
+.lesson-code {
+  font-weight: 600;
+  font-size: 18px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+#createLessonModal {
+  .modal-buttons {
+    button {
+      margin: 15px 15px 0;
+    }
+  }
+}
+

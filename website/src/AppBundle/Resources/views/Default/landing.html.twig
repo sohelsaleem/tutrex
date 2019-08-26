@@ -1,0 +1,169 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@AppBundle/Resources/public/less/landing.less'
+        '@UserBundle/Resources/public/less/subscriptions.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block containerBlock %}
+    {% include "guest-navbar.html.twig" %}
+    {% block content %}
+        <section class="intro-section landing-page-intro" id="intro">
+            <div class="landing-row">
+                <div class="col-md-10 col-md-offset-1 col-xs-12 landing-block">
+                    <div class="col-md-5 col-xs-12">
+                        <div class="landing-intro-info">
+                            <h1 class="landing-text-h1">{{ landingHeader ?: 'Online Training Platform' }}</h1>
+
+                            <h3 class="landing-info-description">
+                                {{ landingSubHeader ?: 'Easy to use cloud based Virtual Classroom with collaborative whiteboard and a
+                                    comprehensive webinar and conferencing solution. It has everything you need for seamless
+                                    online training.' }}
+                            </h3>
+                            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a target="_blank" href="{{ path('lesson_demo_create') }}"
+                                   class="btn btn-lg try-button try-classroom learnium-primary-btn desktop-inline-visible">
+                                    Try virtual classroom</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-xs-12">
+                        <div class="col-md-10 col-xs-12 col-md-offset-2 landing-pic-container">
+                            <img src="{{ landingImage ?: asset('bundles/app/images/pic-1.png') }}" class="landing-pic-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="landing-row">
+                <div class="col-md-10 col-md-offset-1 col-xs-12 landing-block landing-reverse-block">
+                    <div class="col-xs-12 mobile-visible">
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a target="_blank" href="{{ path('lesson_demo_create') }}"
+                               class="btn btn-lg try-button try-classroom learnium-primary-btn">
+                                Try virtual classroom</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-7 col-xs-12">
+                        <div class="col-md-10 col-xs-12 landing-pic-container">
+                            <img src="{{ landingImageBottom ?: asset('bundles/app/images/pic-2.png') }}" class="landing-pic-2">
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-xs-12">
+                        <div class="landing-intro-info">
+                            <h1 class="landing-text-h1">{{ landingHeaderBottom ?: 'Virtual Classroom' }}</h1>
+
+                            <h3 class="landing-info-description">
+                                {{ landingSubHeaderBottom ?: 'Create live lessons with social media integration to invite larger audience. Use feature
+                                packed virtual classroom to effectively deliver lessons and keep your audience engaged.' }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="about-one-section" id="about-one">
+            <div class="landing-row">
+                <div class="col-md-10 col-md-offset-1 col-xs-12 landing-block">
+                    <div class="col-md-4 col-xs-12 feature-block">
+                        <img src="{{ asset('bundles/app/images/cloud.png') }}" class="feature-ico"/>
+                        <h2>Record Lessons</h2>
+                        <h3 class="landing-info-description">
+                            Record your live classroom lessons for leisure learning.
+                        </h3>
+                    </div>
+                    <div class="col-md-4 col-xs-12 feature-block">
+                        <img src="{{ asset('bundles/app/images/flash.png') }}" class="feature-ico"/>
+                        <h2>Webinar</h2>
+                        <h3 class="landing-info-description">
+                            Conduct live webinars and invite up to 500 users. (Contact support for additional users)
+                        </h3>
+                    </div>
+                    <div class="col-md-4 col-xs-12 feature-block">
+                        <img src="{{ asset('bundles/app/images/pi.png') }}" class="feature-ico"/>
+                        <h2>Math Formulas</h2>
+                        <h3 class="landing-info-description">
+                            Easy to use whiteboard with in-built Mathematical formulas for comprehensive training.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% if not app.request.attributes.get('reseller') %}
+            <section class="about-two-section" id="about-two">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <div class="plan-tab-selector">
+                                <div class="plan-tab plan-tab_active" data-content-id="website-plans-tab">Website Plans</div>
+                                <div class="plan-tab" data-content-id="api-plans-tab">API Plans</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="website-plans-tab" class="plan-tab-content">
+                        {% include 'UserBundle:Subscription:subscriptions-block.html.twig' %}
+                    </div>
+                    <div id="api-plans-tab" class="plan-tab-content hidden">
+                        {% include 'UserBundle:Subscription:subscriptions-block.html.twig' with {'plans': apiPlans, 'showCapabilities': 0} %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endblock content %}
+    {% include "footer.html.twig" %}
+    <div class="modal fade" id="landingModal" tabindex="-1" role="dialog" aria-labelledby="landingModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="landingModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="joinLessonModal" tabindex="-1" role="dialog" aria-labelledby="joinLessonModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="joinLessonModalLabel">Join Lesson</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label required" for="joinLessonCode">Lesson code</label>
+                        <input type="text" id="joinLessonCode" required="required" class="form-control">
+                        <div class="join-lesson-error hidden">Cannot find lesson by this code</div>
+                        <div class="modal-buttons text-center">
+                            <input class="btn learnium-info-btn" type="button" id="joinLessonButton" value="Join">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+    {% block javascript %}
+        {{ parent() }}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        {% javascripts filter='?uglifyjs2'
+            '@AppBundle/Resources/public/js/landing.js'
+            '@UserBundle/Resources/public/js/subscriptions.js' %}
+            <script src="{{ asset_url }}"></script>
+
+        {% endjavascripts %}
+    {% endblock %}

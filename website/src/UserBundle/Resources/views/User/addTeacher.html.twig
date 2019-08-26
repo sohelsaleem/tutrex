@@ -1,0 +1,14 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form) }}
+{{ form_row(form.email) }}
+{{ form_row(form.name) }}
+{{ form_row(form.phone) }}
+{{ form_errors(form) }}
+<div class="modal-buttons text-center">
+    <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="add-teacher-button btn learnium-info-btn">Add</button>
+</div>
+{{ form_end(form) }}

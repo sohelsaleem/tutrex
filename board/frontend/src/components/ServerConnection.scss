@@ -1,0 +1,24 @@
+.mainContainer {
+    height: 100%;
+    width: 100%;
+    background: url(assets/screenBeforeWhiteboard/blured-bg.png) no-repeat center;
+    background-size: 100% 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    .textsContainer{
+        margin-bottom: 1em;
+        color: #fff;
+        font-size: .9em;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+
+        .informationText {
+            margin: .1em;
+        }
+    }
+}

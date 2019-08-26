@@ -1,0 +1,26 @@
+{% form_theme editNameForm 'bootstrap_3_layout.html.twig' %}
+
+<div class="username-form profile-form-block">
+    {{ form_start(editNameForm) }}
+    <div class="form-group {{ editNameForm.name.vars.errors|length > 0 ? 'has-error' : '' }}">
+        <label class="profile-label">
+            Name
+        </label>
+
+        <div class="view-field-block">
+            <span class="profile-field">{{ user.name }}</span>
+        <span class="edit-name-button edit-button glyphicon glyphicon-pencil"
+              data-href="{{ path('user_get_edit_name_form_ajax', {id: user.id}) }}"></span>
+        </div>
+        <div class="edit-field-block">
+            {{ form_widget(editNameForm.name) }}
+            <div class="field-actions">
+                <span class="save-name-button save-button glyphicon learning-ok"
+                      data-href="{{ path('user_edit_name_ajax', {id: user.id}) }}"></span>
+                <span class="cancel-button glyphicon learning-remove"></span>
+            </div>
+            {{ form_errors(editNameForm.name) }}
+        </div>
+    </div>
+    {{ form_end(editNameForm) }}
+</div>

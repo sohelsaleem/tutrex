@@ -1,0 +1,58 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: tutrex
+    database_user: root
+    database_password: ~
+    reseller_database_name: learnium_edu
+    # You should uncomment this if you want use pdo_sqlite
+    # database_path: "%kernel.root_dir%/data.db3"
+
+    mailer_transport: smtp
+    mailer_host: ~
+    mailer_user: ~
+    mailer_password: ~
+
+    # A secret key that's used to generate certain security-related tokens
+    secret: hisTokenIsNotSoSecretChangeIt
+
+    node.base_path: /usr/bin/node
+    node.paths:
+        - /usr/local/lib/node_modules
+
+    stripe_secret_key: sk_test_1q7LbrdsEY5BwaPabx2bb0AE
+    stripe_public_key: pk_test_TpuB4VPagmAuTXUemCgeDv2G
+
+    video_delete_timeout: -15
+    demo_lesson_period: 86400
+
+    logo_directory: '%kernel.root_dir%/../web/uploads/logo'
+    storage_directory: '%kernel.root_dir%/../web/uploads/storage'
+    landing_image_directory: 'uploads/landing_image'
+    admin_logo_directory: 'uploads/admin_logo'
+
+    contact_us_email_template: '%kernel.root_dir%/Resources/views/email/contact_us_email.html.twig'
+
+    aws_access_key: ~
+    aws_secret: ~
+    aws_region: us-east-1
+    aws_version: latest
+    aws_bucket_name: tutrex
+    aws_env: local
+
+    ffmpeg: ffmpeg
+
+    board_files_path: /var/www/tutrex_board/files
+    board_files_url: https://tutrex.com/boardFiles
+
+    default_host: tutrex.com
+
+    mailgun_domain: mg.tutrex.com
+    mailgun_api_key: key-ada7dc1f0a604d75d69c622d197d6611
+    from_email: noreply@tutrex.com
+    from_name: Tutrex
+
+    jivochat_code: UlbQa4aBej

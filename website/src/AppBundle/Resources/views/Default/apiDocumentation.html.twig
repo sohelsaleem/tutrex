@@ -1,0 +1,88 @@
+{% extends 'AppBundle:Default:landing.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss, cssrewrite'
+        '@AppBundle/Resources/public/less/apiDocumentation.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    {% set host = app.request.httpHost %}
+    <div class="container documentation-container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Developer API</h1>
+            </div>
+            <div class="col-xs-12 documentation-method">
+                <h2>How to make a request</h2>
+                <p><b>CURL Example:</b></p>
+                <pre class="documentation-response_example">curl -d '{"startTime": 1545318000, "title": "Test lesson title", "duration": 90, "exitLink": "https://google.com", "shareLink": "https://google.com"}' -H "Content-Type: application/json" -H "x-api-key: 123" -X POST https://{{ host }}/api/v1/lessons</pre>
+                <ul>
+                    <li>
+                        Every request should contain two headers:
+                        <ul>
+                            <li>Content-Type: application/json</li>
+                            <li>x-api-key: <i>YOUR_API_KEY</i></li>
+                        </ul>
+                    </li>
+                    <li>Request information should be sent in JSON format.</li>
+                    <li>Responses are also sent in JSON format.</li>
+                </ul>
+            </div>
+            <div class="col-xs-12 documentation-method">
+                <h2>Create Lesson</h2>
+                <p><b>Method: </b>POST</p>
+                <p><b>API Endpoint: </b>/api/v1/lessons</p>
+                <p><b>JSON Request Parameters:</b></p>
+                {% include 'AppBundle:Default/requestParameters:create.html.twig' %}
+                <p><b>Success Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:createSuccess.html.twig' %}</pre>
+                <p><b>Error Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:createError.html.twig' %}</pre>
+            </div>
+            <div class="col-xs-12 documentation-method">
+                <h2>Get Lessons</h2>
+                <p><b>Method: </b>GET</p>
+                <p><b>API Endpoint: </b>/api/v1/lessons</p>
+                <p><b>JSON Request Parameters:</b></p>
+                {% include 'AppBundle:Default/requestParameters:get.html.twig' %}
+                <p><b>Success Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:getSuccess.html.twig' %}</pre>
+                <p><b>Error Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:getError.html.twig' %}</pre>
+            </div>
+            <div class="col-xs-12 documentation-method">
+                <h2>Get Lesson</h2>
+                <p><b>Method: </b>GET</p>
+                <p><b>API Endpoint: </b>/api/v1/lessons/{lessonId}</p>
+                <p><b>Success Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:createSuccess.html.twig' %}</pre>
+                <p><b>Error Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:getOneError.html.twig' %}</pre>
+            </div>
+            <div class="col-xs-12 documentation-method">
+                <h2>Update Lesson</h2>
+                <p><b>Method: </b>POST</p>
+                <p><b>API Endpoint: </b>/api/v1/lessons/{lessonId}</p>
+                <p><b>JSON Request Parameters:</b></p>
+                {% include 'AppBundle:Default/requestParameters:update.html.twig' %}
+                <p><b>Success Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:createSuccess.html.twig' %}</pre>
+                <p><b>Error Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:createError.html.twig' %}</pre>
+            </div>
+            <div class="col-xs-12 documentation-method">
+                <h2>Delete Lesson</h2>
+                <p><b>Method: </b>DELETE</p>
+                <p><b>API Endpoint: </b>/api/v1/lessons/{lessonId}</p>
+                <p><b>Success Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:deleteSuccess.html.twig' %}</pre>
+                <p><b>Error Response Example:</b></p>
+                <pre class="documentation-response_example">{% include 'AppBundle:Default/responseExamples:getOneError.html.twig' %}</pre>
+            </div>
+        </div>
+    </div>
+{% endblock %}

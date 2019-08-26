@@ -1,0 +1,58 @@
+{% if app.user.teachers|length < app.user.numberOfTeachers - 1 %}
+    <div class="add-button-block col-xs-12">
+        <button class="get-add-teacher-modal-button btn learnium-primary-btn">Add teacher</button>
+    </div>
+{% endif %}
+
+<div class="teachers-table-block col-xs-12">
+    {% if app.user.teachers|length != 0 and app.user.numberOfTeachers != 0 %}
+        <table class="teachers-table table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            {% for teacher in app.user.teachers %}
+                <tr class="teacher-row" data-user-id="{{ teacher.id }}">
+                    <td>{{ teacher.name }}</td>
+                    <td>{{ teacher.email }}</td>
+                    <td>{{ teacher.phone|phone_number_format() }}</td>
+                    <td>
+                        {% if teacher.blocked == false %}
+                            Active
+                        {% else %}
+                            Blocked
+                        {% endif %}
+                    </td>
+                    <td>
+                        <input class="teacher-id" type="hidden" value="{{ teacher.id }}">
+                        <a class="show-edit-teacher-modal-button action-link" href="#">
+                            <img src="{{ asset('bundles/app/images/icons/edit.png') }}" class="edit-icon">
+                            <img src="{{ asset('bundles/app/images/icons/edit-hover.png') }}" class="hover-edit-icon">
+                        </a>
+                        <a class="show-delete-teacher-modal-button action-link" href="#">
+                            <img src="{{ asset('bundles/app/images/icons/delete.png') }}" class="delete-icon">
+                            <img src="{{ asset('bundles/app/images/icons/delete-hover.png') }}"
+                                 class="hover-delete-icon">
+                        </a>
+                        {% if not is_granted('ROLE_PREVIOUS_ADMIN') and 'ROLE_SUB_TEACHER' in teacher.roles and teacher.enabled and not teacher.blocked %}
+                            <a class="btn learnium-success-btn btn action-link"
+                               href="{{ path('homepage', {'_switch_user':teacher.username}) }}" data-toggle="modal">Login
+                                as</a>
+                        {% else %}
+                            <a class="btn learnium-success-btn btn invisible action-link"
+                               href="{{ path('homepage', {'_switch_user':teacher.username}) }}" data-toggle="modal">Login
+                                as</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% elseif app.user.numberOfTeachers == 1 %}
+        <p class="alert alert-info info-message">You can't add teachers on your current subscription</p>
+    {% else %}
+        <p class="alert alert-info info-message">You haven't any teachers</p>
+    {% endif %}
+</div>

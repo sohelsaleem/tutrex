@@ -1,0 +1,79 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        'assets/vendor/jquery-ui/jquery-ui.css'
+        '@AdminBundle/Resources/public/less/capabilities.less'%}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="teacher-name">{{ teacher.name }}</h1>
+        </div>
+        <div class="col-xs-12">
+            {% if getRegistrationPeriod(teacher.registrationDate) != false %}
+                <p>Member of E-learning platform for {{ getRegistrationPeriod(teacher.registrationDate) }}</p>
+            {% else %}
+                <p>New member of E-learning platform</p>
+            {% endif %}
+            <p>Payed total: #</p>
+            <p>Subscription plan: {{ teacher.plan.name }}
+                {{ teacher.plan and teacher.plan.period and teacher.plan.name != 'Basic' ? teacher.plan.period : '' }}
+            </p>
+            {% if subscription is not null and teacher.plan.name != 'Basic' and not app.request.attributes.get('reseller') %}
+                <p>
+                    Expiration date: {{ subscription.current_period_end|date("d M Y") }}
+                </p>
+            {% endif %}
+            {% if app.request.attributes.get('reseller') %}
+                <p>
+                    <a class="btn learnium-primary-btn" href="{{ path('admin_switch_teacher_plan', {id: teacher.id}) }}">Switch plan</a>
+                </p>
+            {% endif %}
+            {% if not teacher.reseller or teacher.reseller.apiEnabled %}
+                <p>API subscription plan: {{ teacher.apiPlan.name }}
+                    {{ teacher.apiPlan and teacher.apiPlan.period and not teacher.apiPlan.basic ? teacher.apiPlan.period : '' }}
+                </p>
+            {% endif %}
+            {% if teacher.reseller and teacher.reseller.apiEnabled %}
+                <div class="changeApiPlanContainer">
+                    <select class="form-control planSelect">
+                        {% for apiPlan in apiPlans %}
+                            <option value="{{ apiPlan.id }}" {% if apiPlan.id == teacher.apiPlan.id %}selected{% endif %}>{{ apiPlan.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <a class="btn learnium-primary-btn change-api-plan">Change API plan</a>
+                </div>
+            {% endif %}
+            {% set hasError = app.session.flashbag.get('error')|length > 0 %}
+            <div class="alert alert-danger switch-plan-error {{ hasError ? '' : 'hidden' }}">
+                {{ hasError ? app.session.flashbag.get('error')[0] : '' }}
+            </div>
+        </div>
+        <div class="edit-profile-block col-xs-12">
+            {% include 'AdminBundle::teacherProfileEditForm.html.twig' %}
+        </div>
+        <div class="edit-capabilities-block col-xs-12">
+            {% include 'AdminBundle::capabilitiesEditForm.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% javascripts filter='?uglifyjs2'
+    'assets/vendor/jquery-ui/jquery-ui.js'
+    '@AdminBundle/Resources/public/js/capabilities.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

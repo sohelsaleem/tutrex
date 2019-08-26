@@ -1,0 +1,25 @@
+{% form_theme teacherProfileEditForm 'bootstrap_3_layout.html.twig' %}
+
+<h4>Profile details:</h4>
+<input class="teacher-id" type="hidden" value="{{ teacher.id }}">
+<p><a class="edit-profile" href="#">Edit</a></p>
+<p class="edit-profile-buttons-block"><a class="save-profile" href="#">Save</a><a
+            class="cancel-edit-profile" href="#">Cancel</a></p>
+{{ form_start(teacherProfileEditForm) }}
+
+{{ form_errors(teacherProfileEditForm.name) }}
+
+<p>
+    Name: <span class="name-label profile-value">{{ teacher.name }}</span>
+    {{ form_widget(teacherProfileEditForm.name, {'attr': {'class': 'name-field profile-edit-field', 'value': teacher.name}}) }}
+</p>
+{{ form_errors(teacherProfileEditForm.phone) }}
+<p>
+    Phone:  <span class="phone-label profile-value hidden">{{ teacher.phone }}</span>
+    {{ form_widget(teacherProfileEditForm.phone, {'attr': {'class': 'phone-field profile-edit-field hidden', 'value': teacher.phone}}) }}
+</p>
+<p {% if not app.request.attributes.get('reseller') %}hidden{% endif %}>
+    Expiration date:  <span class="expirationDate-label profile-value">{{ teacher.expirationDate|date('d.m.Y') }}</span>
+    {{ form_widget(teacherProfileEditForm.expirationDate, {'attr': {'class': 'expirationDate-field profile-edit-field', 'value': teacher.expirationDate|date('d.m.Y')}}) }}
+</p>
+{{ form_end(teacherProfileEditForm) }}

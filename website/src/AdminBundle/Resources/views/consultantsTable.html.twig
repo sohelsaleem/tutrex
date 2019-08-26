@@ -1,0 +1,23 @@
+{% if consultants|length != 0 %}
+    <table class="consultants-table table">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        {% for consultant in consultants %}
+            <tr>
+                <td>{{ consultant.name }}</td>
+                <td>{{ consultant.email }}</td>
+                <td>
+                    <input class="consultant-id" type="hidden" value="{{ consultant.id }}">
+                    <a class="get-edit-consultant-form-button learnium-primary-btn btn" href="#">Edit</a>
+                    <a class="show-delete-consultant-modal btn learnium-danger-btn brn" href="#" data-toggle="modal" data-target="#delete-consultant-modal">Delete</a>
+                    <a class="show-reset-consultant-password-modal btn learnium-primary-btn brn" href="#" data-toggle="modal" data-target="#reset-consultant-password-modal">Reset password</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="alert alert-info info-message">You haven't any consultants</p>
+{% endif %}

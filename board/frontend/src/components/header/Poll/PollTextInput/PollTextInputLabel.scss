@@ -1,0 +1,15 @@
+.pollTextInputLabel {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+
+  > div {
+    flex: 1;
+  }
+
+  .pollTextInputCharsLeft {
+    font-size: 12px;
+    color: #9baabc;
+    text-align: right;
+  }
+}

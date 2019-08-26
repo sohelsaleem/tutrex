@@ -1,0 +1,21 @@
+.colorPickerButtonContainer {
+    margin: 0 0.25em;
+    height: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.previewColor {
+    width: 2.4em;
+
+    cursor: pointer;
+    border-radius: 2px;
+
+    position: relative;
+}
+
+.transparentColor {
+    background: url('assets/header/transparentColor.svg') no-repeat center;
+    background-size: 100% 100%;
+}

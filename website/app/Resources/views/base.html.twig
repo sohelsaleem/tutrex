@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="{{ app.request.attributes.get('reseller') and app.request.httpHost != default_host ? asset('favicon-reseller.ico') : asset('favicon.ico') }}">
+        <title>{% block title %}{{ pageTitle ?: 'Tutrex' }}{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets filter='cssrewrite, ?uglifycss'
+            'assets/vendor/bootstrap/css/bootstrap.css'
+            '@AppBundle/Resources/public/less/base.less'
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}">
+            {% endstylesheets %}
+            <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" />
+        {% endblock %}
+    </head>
+    <body>
+        {% block containerBlock %}
+            <div class="container-fluid">
+                {% block body %}
+
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+
+        {% block javascript %}
+            {% javascripts filter='?uglifyjs2'
+            'assets/vendor/jquery/jquery-3.1.1.js'
+            'assets/vendor/bootstrap/js/bootstrap.js'
+            'assets/vendor/jquery-mask/jquery.mask.js'
+            'assets/vendor/jstz/jstz.js'
+            '@AppBundle/Resources/public/js/main.js'
+            %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            {% if uniqueIdForNewUserState is defined %}
+                <script>
+                    window.localStorage.setItem('logged_in', '{{ uniqueIdForNewUserState }}');
+                </script>
+            {% endif %}
+
+            {% if jivochatCode %}
+            <!-- BEGIN JIVOSITE CODE {literal} -->
+            <script type='text/javascript'>
+                (function(){ var widget_id = '{{ jivochatCode }}';var d=document;var w=window;function l(){
+                    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+            <!-- {/literal} END JIVOSITE CODE -->
+            {% endif %}
+        {%  endblock %}
+    </body>
+</html>

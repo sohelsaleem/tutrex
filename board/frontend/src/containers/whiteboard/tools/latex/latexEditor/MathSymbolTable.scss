@@ -1,0 +1,27 @@
+.mathSymbolTable {
+    border: solid 1px #ebebeb;
+    border-top: none;
+    border-radius: 4px;
+    background: white;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.symbolButton {
+    margin: 5px;
+
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+
+    background: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    user-select: none;
+}

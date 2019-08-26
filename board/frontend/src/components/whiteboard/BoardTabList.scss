@@ -1,0 +1,38 @@
+@import '../CommonConstants';
+
+.tabsPanel {
+    background: $panelBackgroundDark;
+    font-size: 0.85em;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+
+    height: 2em;
+}
+
+.tabList {
+    display: flex;
+    flex-flow: row nowrap;
+
+    overflow: hidden;
+}
+
+.addTabButton {
+    flex: 0 0 auto;
+
+    width: 2em;
+    margin-left: 0.5em;
+
+    cursor: pointer;
+
+    background: url(assets/whiteboardTabs/addTab.svg) no-repeat center;
+    background-size: contain;
+    transition: opacity .5s ease;
+
+    opacity: 1;
+
+    &:hover {
+        opacity: 0.85;
+    }
+}

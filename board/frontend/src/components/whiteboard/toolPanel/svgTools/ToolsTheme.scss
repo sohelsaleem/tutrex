@@ -1,0 +1,11 @@
+$toolsIconActiveColor: #4997d5;
+$toolsIconInactiveColor: #c6c0ca;
+$toolsIconHoverColor: #cfd2d9;
+$toolsIconInActiveColorLight: #dde0e7;
+
+:export {
+    toolsIconActiveColor: $toolsIconActiveColor;
+    toolsIconInactiveColor: $toolsIconInactiveColor;
+    toolsIconHoverColor: $toolsIconHoverColor;
+    toolsIconInActiveColorLight: $toolsIconInActiveColorLight
+}

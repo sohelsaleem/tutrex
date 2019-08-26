@@ -1,0 +1,68 @@
+.latexEditor {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.symbolTable {
+    flex: 5 1 80%;
+
+    border: 1px solid blue;
+}
+
+.previewPanel {
+    margin: 0.75em 0;
+    flex: 1 0 20%;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    .preview {
+        flex: 1 0 auto;
+        padding: 1.5em 0;
+        margin: 0.25em 0;
+
+        background: white;
+        border-radius: 4px;
+        border: solid 1px #ebebeb;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.5em;
+        overflow: auto;
+    }
+}
+
+.inputPanel {
+    margin-top: .75em;
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    .inputLine {
+        flex: none;
+
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+
+        .formulaEditor {
+            width: 100%;
+            padding: 1em;
+            margin: 0.25em 0 2em 0;
+
+            color: #44474a;
+            border-radius: 4px;
+            border: 1px solid #ebebeb;
+
+            &:focus {
+                outline-width: 0;
+            }
+        }
+
+        .syntaxError {
+            border: 1px solid #fc8b8b;
+        }
+    }
+}

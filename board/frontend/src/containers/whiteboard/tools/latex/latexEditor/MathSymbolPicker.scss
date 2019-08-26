@@ -1,0 +1,40 @@
+.picker {
+    display: flex;
+    flex-flow: column nowrap;
+
+    margin-bottom: 1em;
+}
+
+.tabContainer {
+    flex: none;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    .tab {
+        flex: 1 1 auto;
+        padding: 0.5em;
+
+        background: #e7ebef;
+        text-align: center;
+        user-select: none;
+
+        cursor: pointer;
+
+
+        &:first-child {
+            border-left: 1px solid #ebebeb;
+            border-radius: 4px 0 0 0;
+        }
+
+        &:last-child {
+            border-right: 1px solid #ebebeb;
+            border-radius: 0 4px 0 0;
+        }
+    }
+
+    .activeTab {
+        background: white;
+        border-radius: 4px 4px 0 0 !important;
+    }
+}

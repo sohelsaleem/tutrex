@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}User registration{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+    '@AppBundle/Resources/public/less/createLessonUser.less'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block containerBlock %}
+    <div class="container">
+        <div class="form-block col-sm-4">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                <button class="btn learnium-secondary-btn" type="submit">Join Virtual Classroom</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

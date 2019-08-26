@@ -1,0 +1,76 @@
+.teacher-name {
+  text-align: center;
+}
+
+.edit-profile-block {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.edit-capabilities-block, .edit-profile-block {
+  .highlighted {
+    color: green;
+  }
+
+  .capability-value, .profile-value {
+    font-weight: bold;
+  }
+
+  .capability-edit-field {
+    display: none;
+    width: 65px;
+    margin-right: 5px;
+  }
+
+  .profile-edit-field {
+    display: none;
+    width: 10em;
+    margin-left: 0.5em;
+  }
+
+  .edit-capabilities-buttons-block, .edit-profile-buttons-block {
+    display: none;
+  }
+
+  .save-capabilities, .save-profile {
+    margin-right: 45px;
+  }
+
+  .help-block {
+    color: #a94442;
+  }
+}
+
+.edit-capabilities-block.edit, .edit-profile-block.edit {
+  .capability-edit-field, .profile-edit-field {
+    display: inline-block;
+  }
+
+  .edit-capabilities-buttons-block, .edit-profile-buttons-block {
+    display: block;
+  }
+
+  .capability-value, .profile-value {
+    display: none;
+  }
+
+  .edit-capabilities, .edit-profile {
+    display: none;
+  }
+}
+
+.switch-plan-error {
+  width: auto;
+  margin: 15px 0 0 0;
+}
+
+.changeApiPlanContainer {
+  display: flex;
+  align-items: center;
+
+  select {
+    max-width: 200px;
+
+    margin-right: 15px;
+  }
+}

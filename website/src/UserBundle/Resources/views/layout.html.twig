@@ -1,0 +1,99 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@UserBundle/Resources/public/less/layout.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <div class="exit-container">
+                You are log in as {{ app.user.name?app.user.name:app.user.username }} <a
+                        class="btn-sm btn learnium-info-btn exit-button"
+                        href="{{ path('homepage', {'_switch_user': '_exit'}) }}">Exit</a>
+            </div>
+        {% endif %}
+        <div class="col-xs-12 col-md-3 menu-col">
+            <nav class="navbar navbar-default navbar-top">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="main-logo" href="{{ path('app_lesson_show_lessons') }}">
+                            <img src="{{ logo ?: asset('bundles/app/images/logo.png') }}"/>
+                        </a>
+                    </li>
+                    <li class="navbar-item"><a
+                                class="{{ app.request.attributes.get('_route') == 'user_show_profile' ? 'active' : '' }}"
+                                href="{{ path('user_show_profile') }}"><span class="glyphicon learnium-profile"></span>
+                            <span class="menu-label">Profile</span>
+                        </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="{{ app.request.attributes.get('_route') == 'app_lesson_show_lessons' ? 'active' : '' }}"
+                           href="{{ path('app_lesson_show_lessons') }}">
+                            <span class="glyphicon learnium-lesson"></span>
+                            <span class="menu-label">Lessons</span>
+                        </a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a class="{{ app.request.attributes.get('_route') == 'storage_index' ? 'active' : '' }}"
+                           href="{{ path('storage_index') }}">
+                            <span class="glyphicon learnium-storage"></span>
+                            <span class="menu-label">Cloud storage</span>
+                        </a>
+                    </li>
+
+                    {% if is_granted('ROLE_TEACHER') %}
+                        <li class="navbar-item">
+                            <a class="{{ app.request.attributes.get('_route') == 'user_show_teachers' ? 'active' : '' }}"
+                               href="{{ path('user_show_teachers') }}"><span
+                                        class="glyphicon learnium-teachers"></span>
+                                <span class="menu-label">Teachers</span>
+                            </a></li>
+                        <li class="navbar-item">
+                            <a class="{{ app.request.attributes.get('_route') == 'user_show_subscriptions' ? 'active' : '' }}"
+                               href="{{ path('user_show_subscriptions') }}"><span
+                                        class="glyphicon learnium-subscriptions"></span>
+                                <span class="menu-label">Subscriptions</span></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <nav class="navbar navbar-default navbar-bottom">
+                <ul class="nav navbar-nav">
+                    {# <li><a href="{{ path('app_show_how_it_works') }}">How it works</a></li> #}
+                    {% if not app.request.attributes.get('reseller') or app.request.attributes.get('reseller').apiEnabled %}
+                        <li><a href="{{ path('developer_api') }}">API Documentation</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('app_show_privacy_policy') }}">Privacy policy</a></li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}" class="logout">
+                            Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-12 col-md-9 content-col">
+            <div class="content">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+        <div class="col-xs-1 col-md-1"></div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    {% javascripts filter='?uglifyjs2'
+        '@UserBundle/Resources/public/js/layout.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

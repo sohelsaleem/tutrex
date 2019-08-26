@@ -1,0 +1,29 @@
+<div class="subscriptions-block">
+    {% if showCapabilities is not defined or showCapabilities %}
+        <div class="capabilities-container noselect">
+            <div class="capability">
+                <div class="capability-icon"><img src="/bundles/user/images/capability.svg"/></div>
+                <div>Unlimited live classes</div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon"><img src="/bundles/user/images/capability.svg"/></div>
+                <div>Collaborative Whiteboard</div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon"><img src="/bundles/user/images/capability.svg"/></div>
+                <div>Video and content sharing</div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon"><img src="/bundles/user/images/capability.svg"/></div>
+                <div>HTML5 Screen Sharing</div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon"><img src="/bundles/user/images/capability.svg"/></div>
+                <div>HD Audio/Video Web<br/> Conferencing</div>
+            </div>
+        </div>
+    {% endif %}
+    {% for plan in plans %}
+        {% include 'UserBundle:Subscription:plan.html.twig' with {plan: plan} %}
+    {% endfor %}
+</div>

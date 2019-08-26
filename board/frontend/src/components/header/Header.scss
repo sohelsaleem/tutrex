@@ -1,0 +1,122 @@
+@import './HeaderConstants';
+@import '../CommonConstants';
+
+
+.container {
+    height: $header-height;
+
+    background-color: $superDarkGreyColor;
+    color: $header-text-color;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+
+    .toggleHeader {
+        position: absolute;
+        top: .5em;
+        right: .5em;
+        display: none;
+        width: 2em;
+        height: 2em;
+        background: url(assets/header/more.svg) no-repeat center;
+
+        @media(max-width: 1440px) {
+            display: flex;
+            z-index: 700;
+        }
+    }
+
+    @media(max-width: 1440px) {
+        height: auto;
+    }
+
+    .insideContainer {
+        margin: 0 0.5em;
+        flex-basis: 50%;
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        background-color: $superDarkGreyColor;
+
+        .spacer {
+            flex: 1 1 auto;
+        }
+
+        @media(max-width: 1440px) {
+            &.insideContainerWithTools {
+                flex: 1;
+                flex-flow: row wrap;
+                justify-content: center;
+
+                height: 3em;
+
+                @media(min-width: 1024px) {
+                    margin: 0 2.5em;
+                }
+
+                &.insideContainerExpanded {
+                    height: auto;
+                    z-index: 666;
+                }
+
+                .spacer {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.finishLessonContainer {
+    display: flex;
+    margin: .5em 0;
+}
+
+.presenterControls {
+    height: 1.5em;
+
+    display: flex;
+    flex: 30 30 auto;
+    flex-flow: row nowrap;
+
+    @media(max-width: 1440px) {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        height: auto;
+
+        > div {
+            height: 1.5em;
+            margin: .5em 0;
+        }
+    }
+
+    @media(max-width: 425px) {
+        justify-content: center;
+    }
+
+    .screenShareButton {
+        width: 3em;
+
+        background: url(assets/header/screen_share_btn_normal.svg) no-repeat center;
+        background-size: contain;
+        transition: opacity .5s ease;
+
+        flex-shrink: 0;
+
+        cursor: not-allowed;
+        opacity: .2;
+
+        &.enabled {
+            cursor: pointer;
+            opacity: 1;
+
+            &:hover {
+                opacity: $header-buttons-opacity-hover;
+            }
+        }
+    }
+}

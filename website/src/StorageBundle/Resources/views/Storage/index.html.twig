@@ -1,0 +1,211 @@
+{% extends 'UserBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@StorageBundle/Resources/public/less/storage.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="storage-container" data-upload-limit="{{ app.user.maxUploadSize }}">
+        <div class="col-xs-11">
+            <div class="title-container">
+                {% if folder is not null %}
+                    <h3 class="title"><a class="back-button"
+                                         href="{{ folder.folder
+                                         ? path('storage_folder', {'slug':folder.folder.slug})
+                                         : path('storage_index') }}"></a>{{ folder.name }}
+                    </h3>
+                    <input type="hidden" id="parent_id" value="{{ folder.id }}"/>
+                {% else %}
+                    <h3 class="title">Cloud storage</h3>
+                {% endif %}
+            </div>
+            <div class="action-container">
+                <button class="btn learnium-primary-btn upload-button">Upload file</button>
+                <input type="file" class="hidden upload-input" multiple/>
+                <button class="btn learnium-third-btn create-folder">Create folder</button>
+                <div class="storage-parameters-container hidden">
+                    <div class="storage-parameters-label">
+                        {% if app.user.storageLimit %}
+                            <span class="storage-parameters-used"></span> of <span
+                                class="storage-parameters-total"></span> used
+                        {% else %}
+                            <span>Unlimited storage</span>
+                        {% endif %}
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-value"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flash-notice upload-errors">
+                <p class="alert alert-danger info-message file-error hidden">Maximum file size is {{ app.user.maxUploadSize }} mb. Supported
+                    formats are: .jpg,
+                    .png, .gif, .svg, .ppt(x), .doc(x), .xls(x), .pdf, .odt, .ods, .odp, .txt, .csv, .mp4, .mp3</p>
+                <p class="alert alert-danger info-message storage-error hidden">You reached storage limit</p>
+                <p class="alert alert-danger info-message subscription-error hidden">
+                    {% if app.user.hasRole('ROLE_TEACHER') %}
+                        Your subscription has expired. Please <a
+                            href="{{ path('user_show_subscriptions') }}">upgrade</a> to
+                        continue using your storage space or clean storage to fit 1GB limit.
+                    {% else %}
+                        You storage limit has decreased. Please contact your manager or clean the storage to fit the limit.
+                    {% endif %}
+                </p>
+            </div>
+            <div class="content-wrapper" id="dropzone-holder">
+                {% include 'StorageBundle:Storage:folderContent.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="createFolderModal" tabindex="-1" role="dialog" aria-labelledby="createFolderModalLabel"
+         aria-hidden="true" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="createFolderModalLabel">Create folder</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label required" for="folder_name">Folder name</label>
+                        <input type="text" id="folder_name" name="name" required="required"
+                               class="form-control">
+                        <span class="help-block hidden">Please enter a folder's name</span>
+                    </div>
+                    <div class="text-center modal-buttons">
+                        <button class="create-folder-cancel-button btn learnium-default-btn" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button class="create-folder-button btn learnium-info-btn">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="renameModalLabel"
+         aria-hidden="true" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="renameModalLabel">Renaming <span class="item-type"></span> - <span
+                                class="item-name"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label required" for="item_name">New name of <span
+                                    class="item-type"></span></label>
+                        <input type="text" id="item_name" name="name" required="required"
+                               class="form-control item-name">
+                        <span class="help-block hidden">Please enter a <span class="item-type"></span>'s name</span>
+                    </div>
+                    <div class="text-center modal-buttons">
+                        <button class="rename-item-cancel-button btn learnium-default-btn" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button class="rename-item-button btn learnium-info-btn">Rename</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="deleteModalLabel">Deleting <span class="item-type"></span> - <span
+                                class="item-name"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">Are you sure to delete <span class="item-type"></span> <span
+                                class="item-name"></span> <span
+                                class="item-folder-note hidden">and all subfolders and subfiles</span>?</h4>
+                    <div class="text-center modal-buttons">
+                        <button class="delete-item-cancel-button btn learnium-default-btn" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button class="delete-item-button btn learnium-danger-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="progressModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="text-center">Uploading <span class="upload-body"></span></p>
+                    <div class="progress-wrapper">
+                        <div class="progress-value"></div>
+                    </div>
+                    <div class="text-center modal-buttons">
+                        <button class="upload-cancel-button btn learnium-info-btn" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="processingModal" tabindex="-1" role="dialog" aria-labelledby="processingModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <div class="processing-content">
+                        <p class="text-center">Processing <span class="upload-body"></span></p>
+                        <div class="preloader sk-fading-circle">
+                            <div class="sk-circle1 sk-circle"></div>
+                            <div class="sk-circle2 sk-circle"></div>
+                            <div class="sk-circle3 sk-circle"></div>
+                            <div class="sk-circle4 sk-circle"></div>
+                            <div class="sk-circle5 sk-circle"></div>
+                            <div class="sk-circle6 sk-circle"></div>
+                            <div class="sk-circle7 sk-circle"></div>
+                            <div class="sk-circle8 sk-circle"></div>
+                            <div class="sk-circle9 sk-circle"></div>
+                            <div class="sk-circle10 sk-circle"></div>
+                            <div class="sk-circle11 sk-circle"></div>
+                            <div class="sk-circle12 sk-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+    {% block javascript %}
+        {{ parent() }}
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        {% javascripts filter='?uglifyjs2'
+            '@StorageBundle/Resources/public/js/jquery.ajax-progress.js'
+            '@StorageBundle/Resources/public/js/storage.js'
+            '@StorageBundle/Resources/public/js/StorageController.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}

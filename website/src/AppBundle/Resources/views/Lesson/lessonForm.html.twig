@@ -1,0 +1,36 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% if formType is defined and formType == 'edit' %}
+    {% set type = 'edit' %}
+{% else %}
+    {% set type = 'create' %}
+{% endif %}
+
+{{ form_start(form, {'attr': {'class': type ~ '-lesson-form lesson-form'}}) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.title) }}
+
+    <p class="create-lesson-field-label">Date & time</p>
+    <div class="date-field-block">
+        {{ form_row(form.date) }}
+    </div>
+
+    <div class="time-field-block bootstrap-timepicker timepicker">
+        {{ form_row(form.time) }}
+    </div>
+
+    <p class="create-lesson-field-label">Approximate duration</p>
+    <div class="duration-hours-field-block">
+        {{ form_row(form.durationHours) }}
+    </div>
+    <span>hours</span>
+    <div class="duration-minutes-field-block">
+        {{ form_row(form.durationMinutes) }}
+    </div>
+    <span>minutes</span>
+{{ form_end(form) }}
+<div class="text-center modal-buttons">
+    <button class="btn learnium-default-btn" data-dismiss="modal">Cancel</button>
+    <button class="{{ type }}-lesson-button btn learnium-info-btn">{{ type|capitalize }}</button>
+</div>

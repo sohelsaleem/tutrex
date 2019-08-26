@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Lesson{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss, cssrewrite'
+    '@AppBundle/Resources/public/less/expiredLesson.less'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="message-row row">
+        <div class="col-xs-12">
+            <div class="message-wrapper">
+                <p class="message">Sorry, this lesson is expired</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

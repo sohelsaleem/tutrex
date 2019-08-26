@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control {
+    width: 0;
+    height: 0;
+    cursor: pointer;
+
+    &.up {
+        border-left: 0.3em solid transparent;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0.6em solid #3ea1f6;
+        &.disabled {
+            border-bottom: 0.6em solid #bfc3ca;
+        }
+    }
+
+    &.up:hover:not(.disabled) {
+        border-bottom: 0.6em solid #3a95e3;
+    }
+
+    &.down {
+        border-left: 0.3em solid transparent;
+        border-right: 0.3em solid transparent;
+        border-top: 0.6em solid #3ea1f6;
+        margin-right: 0.5em;
+        &.disabled {
+            border-top: 0.6em solid #bfc3ca;
+        }
+    }
+
+    &.down:hover:not(.disabled) {
+        border-top: 0.6em solid #3a95e3;
+    }
+}
+
+.value{
+    font-size: 2.5em;
+    color: #3ea1f6;
+    margin: 0 0.25em;
+}
+
+
+

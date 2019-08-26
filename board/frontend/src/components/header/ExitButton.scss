@@ -1,0 +1,21 @@
+@import './HeaderConstants';
+
+.exitButtonContainer {
+    height: 1.5em;
+
+    display: flex;
+    justify-content: flex-end;
+
+    .exitButton {
+        width: 3em;
+        height: 100%;
+
+        background: url(assets/header/exit.svg) no-repeat center;
+        background-size: contain;
+        transition: opacity .5s ease;
+
+        &:hover {
+            opacity: $header-buttons-opacity-hover;
+        }
+    }
+}

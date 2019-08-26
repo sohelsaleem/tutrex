@@ -1,0 +1,42 @@
+.buttonBlue {
+    background-color: #3ea1f6;
+    color: #ffffff;
+    outline-width: 0;
+
+    &:hover {
+        background-color: #3a95e3;
+    }
+
+    &:disabled {
+        background-color: #d6d9de;
+    }
+}
+
+.buttonGrey {
+    background-color: #bfc3ca;
+    color: #ffffff;
+    outline-width: 0;
+
+    &:hover {
+        background-color: #a9aeb6;
+    }
+
+    &:disabled {
+        background-color: #d6d9de;
+    }
+}
+
+
+.buttonRed {
+    background-color: #f03f3f;
+    color: #ffffff;
+    outline-width: 0;
+
+    &:hover {
+        background-color: #cf2e2e;
+    }
+
+    &:disabled {
+        background-color: #d6d9de;
+    }
+}

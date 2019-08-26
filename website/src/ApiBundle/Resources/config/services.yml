@@ -1,0 +1,28 @@
+services:
+  api.annotation_listener.api_secure:
+    class: ApiBundle\EventListener\ApiSecureAnnotationListener
+    arguments: ['@annotation.util', '@user.manager']
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+  api.annotation_listener.lesson_access:
+    class: ApiBundle\EventListener\LessonAccessAnnotationListener
+    arguments: ['@annotation.util']
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+  api.annotation_listener.json_response:
+    class: ApiBundle\EventListener\JsonResponseAnnotationListener
+    arguments: ["@annotation.util"]
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 1000 }
+      - { name: kernel.event_listener, event: kernel.view, method: onKernelView, priority: 1000 }
+
+  api.annotation_listener.json_exception:
+    class: ApiBundle\EventListener\JsonExceptionListener
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception,  method: onKernelException }
+
+  annotation.util:
+    class: ApiBundle\Util\AnnotationUtil
+    arguments: ["@annotations.reader"]

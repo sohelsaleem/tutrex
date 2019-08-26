@@ -1,0 +1,14 @@
+.fullScreenButtonContainer {
+    flex: 1 1;
+    display: flex;
+    justify-content: flex-end;
+
+    .fullScreenButton {
+        background-image: url(assets/document/fullscreen.svg);
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+}
+

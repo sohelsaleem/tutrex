@@ -1,0 +1,33 @@
+@import './HeaderConstants';
+
+.recordingButtonContainer {
+  display: flex;
+  align-items: center;
+  transition: opacity .5s ease;
+  cursor: pointer;
+  margin-right: 2.5em;
+
+  @media(max-width: 1440px) {
+    margin: 0;
+    text-indent: -9999px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &:hover {
+    opacity: $header-buttons-opacity-hover;
+  }
+}
+
+.toggleRecordingButton {
+  width: 2.5em;
+  height: 100%;
+}
+
+.startRecordingButton {
+  background: url(assets/header/start.svg) no-repeat center;
+}
+
+.stopRecordingButton {
+  background: url(assets/header/stop.svg) no-repeat center;
+}

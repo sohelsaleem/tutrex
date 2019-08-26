@@ -1,0 +1,9 @@
+<div class="plan-action-block">
+    {% if app.user.plan.stripePlanId == plan.stripePlanId or app.user.apiPlan.stripePlanId == plan.stripePlanId %}
+        <span class="current-plan-label noselect">Selected</span>
+    {% elseif not app.request.attributes.get('reseller') %}
+        <button class="show-change-plan-modal-button learnium-success-btn btn">Change Plan</button>
+    {% else %}
+        <button class="btn learnium-success-btn contact-us-button">Contact Us</button>
+    {% endif %}
+</div>

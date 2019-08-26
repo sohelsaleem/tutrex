@@ -1,0 +1,45 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='?uglifycss'
+        '@AdminBundle/Resources/public/less/customization.less'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block title %}Customization{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_row(form.pageTitle) }}
+    {{ form_row(form.landingHeader) }}
+    {{ form_row(form.landingSubHeader) }}
+    {{ form_row(form.landingHeaderBottom) }}
+    {{ form_row(form.landingSubHeaderBottom) }}
+    <img class="logoPreview" src="{{ logo ?: asset('bundles/app/images/logo-white.png') }}"/>
+    <button class="uploadLogoButton" type="button">Upload logo</button>
+    <img class="landingImagePreview" src="{{ landingImage ?: asset('bundles/app/images/pic-1.png') }}"/>
+    <button class="uploadLandingImageButton" type="button">Upload landing image</button>
+    <img class="landingImageBottomPreview" src="{{ landingImageBottom ?: asset('bundles/app/images/pic-2.png') }}"/>
+    <button class="uploadLandingImageBottomButton" type="button">Upload landing image (bottom)</button>
+    <h4>"Contact us" information for Privacy Policy page</h4>
+    {{ form_rest(form) }}
+    <button class="btn learnium-primary-btn customizationSaveButton" type="submit">Save</button>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% javascripts filter='?uglifyjs2'
+'@AdminBundle/Resources/public/js/customization.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

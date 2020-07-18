@@ -14,7 +14,7 @@
     "es6-promisify": "^5.0.0",
     "fs-extra": "^2.1.2",
     "kurento-client": "^6.6.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.20.1",
